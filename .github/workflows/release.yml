@@ -1,0 +1,66 @@
+name: Release
+
+on:
+  push:
+    branches: master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.10.0
+
+      - name: 'install npm@latest'
+        run: npm i -g npm@latest
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Lint Source Files
+        run: npm run lint
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DIRECT_URL: ${{ secrets.DIRECT_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21.6.0
+
+      - name: 'install npm@latest'
+        run: npm i -g npm@latest
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Test (Unit + Integration)
+        run: npm run test
+
+      - name: Test (E2E)
+        run: npm run test:e2e
+
+      - name: Test (Coverage)
+        run: npm run test:coverage
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: To Render
+        if: github.ref == 'refs/heads/main'
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: curl "$deploy_url"

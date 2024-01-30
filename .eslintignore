@@ -1,0 +1,8 @@
+# Build Output
+dist
+node_modules
+
+# Configuration + Project Metadata
+/.eslintrc.cjs
+/*.js
+/test/**/*

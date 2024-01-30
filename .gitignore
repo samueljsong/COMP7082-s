@@ -1,2 +1,9 @@
-node_modules
+# Output
+/dist
+/node_modules
+
+# Test
+/coverage
+
+# Environment Variables
 .env
