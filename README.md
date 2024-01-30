@@ -12,7 +12,6 @@ npm run start:dev
 
 ### Production
 ```javascript
-npm run build:prod
 npm run start:prod
 ```
 
