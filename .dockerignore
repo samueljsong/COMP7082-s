@@ -1,0 +1,11 @@
+# Compiled Output
+/dist
+/node_modules
+/coverage
+
+# Dev
+.vscode
+
+# Docker
+Dockerfile
+docker-compose.yml
