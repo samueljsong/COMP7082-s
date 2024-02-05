@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { Service } from 'typedi';
 
-class PrismaServce extends PrismaClient {}
-
-export const prisma = new PrismaServce();
+@Service()
+export class PrismaServce extends PrismaClient {}
