@@ -1,5 +1,8 @@
-import app from './app';
+import 'dotenv/config';
 
-const PORT = process.env.PORT || 3000;
+import App from './app';
+import { HealthRoute } from './health/health.route';
+import { AppRoute } from './app/app.route';
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+const app = new App([new AppRoute(), new HealthRoute()], '/api');
+app.listen();
