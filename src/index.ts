@@ -1,8 +1,9 @@
 import 'dotenv/config';
 
 import App from './app';
-import { HealthRoute } from './health/health.route';
-import { AppRoute } from './app/app.route';
+import { AppController } from './app/app.controller';
+import { HealthController } from './health/health.controller';
+import { AuthController } from './auth/dtos/auth.controller';
 
-const app = new App([new AppRoute(), new HealthRoute()], '/api');
+const app = new App([AppController, HealthController, AuthController]);
 app.listen();
