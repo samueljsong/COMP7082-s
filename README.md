@@ -1,22 +1,22 @@
-<h1 style='text-align:center'>🍚 Backend 🍚</h1>
+<h1 align='center'>🍚 Backend 🍚</h1>
 
-<h2 style='text-align:center; color:grey'>Backend for Repit</h2>
+<h2 align='center' style='color:gray'>Backend for Repit</h2>
 
 
-<p style='text-align:center'>
+<p align='center'>
   <img src="https://img.shields.io/badge/-Express-fff?style=for-the-badge&logo=Express&logoColor=000" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-TypeScript-007ACC?style=for-the-badge&logo=TypeScript&logoColor=fff" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=fff" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-NPM-CB3837?style=for-the-badge&logo=NPM&logoColor=fff" />&nbsp;&nbsp;
 </p>
-<p style='text-align:center'>
+<p align='center'>
   <img src="https://img.shields.io/badge/-Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=fff" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-Nodemon-76D04B?style=for-the-badge&logo=Nodemon&logoColor=fff" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=fff" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=000" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-Jest-C21325?style=for-the-badge&logo=Jest&logoColor=fff" />&nbsp;&nbsp;
 </p>
-<p style='text-align:center'>
+<p align='center'>
   <img src="https://img.shields.io/badge/-MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=fff" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-Prisma-22314a?style=for-the-badge&logo=Prisma&logoColor=fff" />&nbsp;&nbsp;
 </p>
