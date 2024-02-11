@@ -17,8 +17,26 @@ export class BadRequestException extends HttpException {
   }
 }
 
+export class UnauthorizedException extends HttpException {
+  constructor(message: string) {
+    super(StatusCodes.UNAUTHORIZED, ReasonPhrases.UNAUTHORIZED, message);
+  }
+}
+
+export class ForbiddenException extends HttpException {
+  constructor(message: string) {
+    super(StatusCodes.FORBIDDEN, ReasonPhrases.FORBIDDEN, message);
+  }
+}
+
 export class NotFoundException extends HttpException {
   constructor(message: string) {
     super(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND, message);
+  }
+}
+
+export class InternalServerException extends HttpException {
+  constructor(message: string) {
+    super(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, message);
   }
 }
