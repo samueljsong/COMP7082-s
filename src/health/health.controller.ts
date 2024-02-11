@@ -10,8 +10,4 @@ export class HealthController {
   public ok() {
     return this.health.ok();
   }
-
-  // public ok = handle((req: Request, res: Response) => {
-  //   res.send(this.health.ok());
-  // });
 }

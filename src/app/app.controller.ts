@@ -10,8 +10,4 @@ export class AppController {
   public root() {
     return this.app.welcome();
   }
-
-  // public root = handle((req: Request, res: Response) => {
-  //   res.send(this.app.welcome());
-  // });
 }
