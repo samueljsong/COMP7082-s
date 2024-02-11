@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import { Body, Controller, HttpCode, Post } from 'routing-controllers';
-import { LoginDto } from './login.dto';
+import { LoginDto } from './dtos/login.dto';
 
 @Controller('/auth')
 export class AuthController {
