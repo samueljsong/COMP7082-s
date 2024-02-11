@@ -16,7 +16,6 @@ export default class App {
     this._server = express();
     this.initializeMiddlewares();
     this.initializeRouting(controllers);
-    this.initializeErrorHandling();
   }
 
   get server() {
@@ -39,13 +38,9 @@ export default class App {
     useExpressServer(this._server, {
       routePrefix: '/api',
       controllers,
+      middlewares: [UnknownRouteMiddleware, ErrorMiddleware],
       defaultErrorHandler: false,
     });
-  }
-
-  private initializeErrorHandling() {
-    this._server.use(UnknownRouteMiddleware);
-    this._server.use(ErrorMiddleware);
   }
 
   public listen() {
