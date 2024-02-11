@@ -1,13 +1,13 @@
 import request from 'supertest';
 import App from '../src/app';
-import { HealthRoute } from '../src/health/health.route';
-import { AppRoute } from '../src/app/app.route';
+import { AppController } from '../src/app/app.controller';
+import { HealthController } from '../src/health/health.controller';
 
 describe('App E2E', () => {
   let app: App;
 
   beforeAll(() => {
-    app = new App([new AppRoute(), new HealthRoute()], '/api');
+    app = new App([AppController, HealthController]);
   });
 
   describe('App', () => {

@@ -1,11 +1,11 @@
 import request from 'supertest';
 import App from '../app';
-import { AppRoute } from './app.route';
+import { AppController } from './app.controller';
 
 describe('GET /api', () => {
   let app: App;
   beforeAll(() => {
-    app = new App([new AppRoute()], '/api');
+    app = new App([AppController]);
   });
 
   test('App should be defined', () => {
