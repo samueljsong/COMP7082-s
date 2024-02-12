@@ -25,7 +25,7 @@ describe('App E2E', () => {
 
   describe('Health Check', () => {
     it('should responsd with 200', async () => {
-      const res = await request(app.server).get('/health');
+      const res = await request(app.server).get('/api/health');
       expect(res.statusCode).toBe(200);
     });
   });
