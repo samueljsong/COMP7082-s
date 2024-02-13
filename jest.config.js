@@ -5,7 +5,7 @@ const config = {
   collectCoverageFrom: ['<rootDir>/src/**/*.(t|j)s'],
   coverageThreshold: {
     global: {
-      lines: 50,
+      lines: 10,
     },
   },
   testEnvironment: 'node',

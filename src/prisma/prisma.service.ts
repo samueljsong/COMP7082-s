@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { Service } from 'typedi';
 
 @Service()
-export class PrismaService extends PrismaClient {
+export class PrismaServce extends PrismaClient {
   constructor() {
     super({
       datasources: {

@@ -5,18 +5,17 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { ErrorMiddleware } from './middlewares/error.middleware';
 import { UnknownRouteMiddleware } from './middlewares/unknown-route.middleware';
-import { Route } from './utils/route';
 import cors from 'cors';
+import { RoutingControllersOptions, useExpressServer } from 'routing-controllers';
 
 export default class App {
   private _server: express.Express;
   private _port: string | number = process.env.PORT || 3000;
 
-  constructor(routes: Route[], basePrefix: string = '') {
+  constructor(controllers: RoutingControllersOptions['controllers']) {
     this._server = express();
     this.initializeMiddlewares();
-    this.initializeRouting(routes, basePrefix);
-    this.initializeErrorHandling();
+    this.initializeRouting(controllers);
   }
 
   get server() {
@@ -28,26 +27,20 @@ export default class App {
   }
 
   private initializeMiddlewares() {
-    this.server.use(cors({ origin: true, credentials: true }));
+    this._server.use(cors({ origin: true, credentials: true }));
     this._server.use(helmet());
     this._server.use(cookieParser());
     this._server.use(express.json());
     this._server.use(express.urlencoded({ extended: true }));
   }
 
-  private initializeRouting(routes: Route[], basePrefix: string) {
-    routes.forEach((route) => {
-      if (route.exludePrefix) {
-        this._server.use(route.path, route.router);
-      } else {
-        this._server.use(basePrefix + route.path, route.router);
-      }
+  private initializeRouting(controllers: RoutingControllersOptions['controllers']) {
+    useExpressServer(this._server, {
+      routePrefix: '/api',
+      controllers,
+      middlewares: [UnknownRouteMiddleware, ErrorMiddleware],
+      defaultErrorHandler: false,
     });
-  }
-
-  private initializeErrorHandling() {
-    this._server.use(UnknownRouteMiddleware);
-    this._server.use(ErrorMiddleware);
   }
 
   public listen() {
