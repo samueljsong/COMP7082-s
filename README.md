@@ -90,6 +90,13 @@ npx prisma generate
 Each module should be housed in their own directory (ie. auth, user, etc)
 </p>
 
+Controller classes should be added in the array when initializing the app in `index.ts`
+```typescript
+const app = new App([AppController, HealthController, AuthController]);
+app.listen();
+```
+
+
 #### Error Handling
 
 Errors are handled by 2 different middlewares:
@@ -148,7 +155,7 @@ export class LoginDto {
 `auth.controller.ts`
 ```typescript
 @Controller('/auth')
-export class AppController {
+export class AuthController {
   // Use Container.get(<ServiceName>) to inject service
   private readonly auth = Container.get(AuthService);
   
