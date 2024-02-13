@@ -122,62 +122,55 @@ class BadRequestException extends HttpException {
 ```javascript
 │
 ├──📂 dtos              // Req and Res objects
-│  └── auth.dto.ts      
+│  └── login.dto.ts      
 │  
 ├──📂 tests             // Tests for controllers and services
 │  └── auth.spec.ts     
 │  
-├── auth.controller.ts  // Functions to map to each route
-├── auth.route.ts       // Define the routes
+├── auth.controller.ts  // Mapping routes
 ├── auth.service.ts     // For the logic
 │  
 ```
 
 #### </> Code Examples
-`app.route.ts`
+`login.dto.ts`
 ```typescript
-// Make sure to implement the interface 'Route'
-export class AppRoute implements Route {
-  // Path prefix for all routes of this router
-  public readonly path = "";
-  public readonly router = Router();
-  // Don't exlude from global prefix '/api'
-  public readonly excludePrefix = false;
-  private readonly app = new AppController()
+export class LoginDto {
+  @IsEmail()
+  email: string;
 
-  constructor() {
-    this.initializeRoutes()
-  }
-
-  initializeRoutes(): void {
-    this.router.get("/testing", this.app.testing);
-  }
+  @IsString()
+  @IsNotEmpty()
+  password: string;
 }
 ```
 
-`app.controller.ts`
+`auth.controller.ts`
 ```typescript
+@Controller('/auth')
 export class AppController {
   // Use Container.get(<ServiceName>) to inject service
-  private readonly app = Container.get(AppService);
+  private readonly auth = Container.get(AuthService);
   
-  // Define functions for the routes
-
-  // Make sure to use the handle function for provided error handling
-  public testing = handle((req: Request, res: Response) => {
-    res.send(this.app.testing())
-  });
+  @Post('login')
+  login(@Body() dto: LoginDto) {
+    return auth.login(dto);
+  }
 }
 
 ```
 
-`app.service.ts`
+`auth.service.ts`
 ```typescript
 // Make sure to annoate with the '@Service' decorator
 @Service()
-export class AppService {
-  public testing() {
-    return "testing";
+export class AuthService {
+  public login(dto: LoginDto) {
+    // check if user exist in db
+    // compare password against hash in db
+    // gen jwt
+    // return jwt
+    return
   }
 }
 
