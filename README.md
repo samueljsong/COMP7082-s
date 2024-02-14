@@ -85,6 +85,11 @@ Generating the Prisma Client (Needed for using the ORM in code)
 npx prisma generate
 ```
 
+Opening Studio to view data in database
+```typescript
+npx prisma studio
+```
+
 ### Writing Code
 <p>
 Each module should be housed in their own directory (ie. auth, user, etc)
