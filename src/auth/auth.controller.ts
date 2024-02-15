@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import { Body, Controller, Get, HttpCode, Post, Req, Res } from 'routing-controllers';
+import { Authorized, Body, Controller, Get, HttpCode, Post, Req, Res } from 'routing-controllers';
 import { LoginDto } from './dtos/login.dto';
 import Container from 'typedi';
 import { AuthService } from './auth.service';
@@ -18,8 +18,10 @@ export class AuthController {
     return { statusCode: StatusCodes.OK, message: 'Successful Login' };
   }
 
+  @Authorized()
   @Get('/me')
   public me(@Req() req: Request) {
-    return this.auth.me(req.cookies[config.get('TOKEN')]);
+    const user = this.auth.me(req['user']);
+    return { statusCode: StatusCodes.OK, message: 'User details', ...user };
   }
 }
