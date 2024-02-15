@@ -4,7 +4,7 @@ import { AdminService } from './admin.service';
 
 // THIS IS FOR QUERYING ROUTES 
 @Controller('/admin')
-export class UserController {
+export class AdminController {
   private readonly admin = Container.get(AdminService);
 
   @Get('/all')
