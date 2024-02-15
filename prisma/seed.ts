@@ -8,7 +8,7 @@ async function seed() {
   await prisma.user.create({
     data: {
       email: 'aliu142@my.bcit.ca',
-      hashed_password: '$2a$10$zG3UaGgMJmDFQeForLkCIOwAZyWs4dhVyj5Wp1c8sig.V2gpCPlLm',
+      hashed_password: '$2a$10$T5vbxdlbF9HSZoiZXF2dRO5jSkwwYFk5a231RreP1xpNCcu.Y8FXC',
       user_type_id: 2,
     },
   });
@@ -29,13 +29,13 @@ async function seed() {
   await prisma.user.create({
     data: {
       email: 'jsong113@my.bcit.ca',
-      hashed_password: '$2a$10$CrZzm/jcwCcM/KlvYAGJZe66FObBqn0Aysn9qu2EgrEUL1t7OhkGe',
+      hashed_password: '$2a$10$ccFEcgJnGX6E3RNGw99BkeYZDiB4UVEa8IgFQAAFpYfHXY1/XKg5i',
       user_type_id: 2,
     },
   });
   await prisma.user.create({
     data: {
-      email: 'wnguyen@16@my.bcit.ca',
+      email: 'wnguyen16@my.bcit.ca',
       hashed_password: '$2a$10$Wl.HB0pVu3K.ZNaX4Xhh9OHn6ajgs6B/V0lYeb5VoZbBrr1UkbGAi',
       user_type_id: 2,
     },
