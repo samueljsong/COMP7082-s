@@ -4,6 +4,8 @@ import { Action, ExpressMiddlewareInterface } from 'routing-controllers';
 import { config } from '../utils/env';
 import { UnauthorizedException } from '../utils/errors';
 import { verify } from 'jsonwebtoken';
+import Container from 'typedi';
+import { RedisService } from '../redis/redis.service';
 
 export class AuthGuard implements ExpressMiddlewareInterface {
   use(req: Request, _res: Response, next: NextFunction) {
@@ -20,8 +22,15 @@ export class AuthGuard implements ExpressMiddlewareInterface {
 }
 
 export const Guard = async (action: Action, roles: string[]) => {
+  const redis = Container.get(RedisService);
+
   const request: Request = action.request;
   const token = extractToken(request);
+
+  const inside = await redis.getValue(token);
+  if (inside) {
+    throw new UnauthorizedException('Blacklisted token');
+  }
 
   let user: user & { user_type: user_type };
 
