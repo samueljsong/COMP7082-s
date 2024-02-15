@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import { Authorized, Body, Controller, Get, HttpCode, Post, Req, Res } from 'routing-controllers';
+import { Authorized, Body, Controller, CookieParam, Get, HttpCode, Post, Req, Res } from 'routing-controllers';
 import { LoginDto } from './dtos/login.dto';
 import Container from 'typedi';
 import { AuthService } from './auth.service';
@@ -16,6 +16,13 @@ export class AuthController {
     const token = await this.auth.login(dto.email, dto.password);
     res.cookie(config.get('TOKEN'), token, { path: '/api', maxAge: 60 * 1000, httpOnly: true });
     return { statusCode: StatusCodes.OK, message: 'Successful Login' };
+  }
+
+  @Authorized()
+  @Get('/logout')
+  public async logout(@CookieParam(config.get('TOKEN')) token: string) {
+    await this.auth.logout(token);
+    return { statusCode: 200, message: 'Logout' };
   }
 
   @Authorized()
