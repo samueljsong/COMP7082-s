@@ -44,6 +44,7 @@
     "http-status-codes": "^2.3.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
+    "redis": "^4.6.13",
     "reflect-metadata": "^0.2.1",
     "routing-controllers": "^0.10.4",
     "typedi": "^0.10.0"
