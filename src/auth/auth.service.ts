@@ -3,6 +3,8 @@ import { PrismaServce } from '../prisma/prisma.service';
 import { BadRequestException, UnauthorizedException } from '../utils/errors';
 import { compareSync } from 'bcrypt';
 import { sign, verify } from 'jsonwebtoken';
+import { config } from '../utils/env';
+import { user, user_type } from '@prisma/client';
 
 @Service()
 export class AuthService {
@@ -28,14 +30,15 @@ export class AuthService {
 
   public me(token: string) {
     try {
-      const user = verify(token, process.env.JWT_SECRET!);
+      const payload = verify(token, config.get('JWT_SECRET'));
 
-      delete user['hashed_password'];
-      delete user['iat'];
-      delete user['exp'];
-      delete user['user_type_id'];
-
-      return { user_id: user.user_id, email: user.email, user_type: user.user_type.type };
+      return {
+        user_id: payload.user_id,
+        email: payload.email,
+        first_name: payload.first_name,
+        last_name: payload.last_name,
+        user_type: payload.user_type.type,
+      };
     } catch (err) {
       throw new UnauthorizedException('Not logged in');
     }

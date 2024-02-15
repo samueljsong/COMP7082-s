@@ -58,6 +58,8 @@ model status {
 model user {
   user_id         Int       @id @default(autoincrement())
   email           String    @unique(map: "email_UNIQUE") @db.VarChar(100)
+  first_name      String    @default("") @db.VarChar(100)
+  last_name       String    @default("") @db.VarChar(100)
   hashed_password String    @db.VarChar(100)
   user_type_id    Int       @default(1)
   report          report[]
