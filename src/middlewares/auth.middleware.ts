@@ -23,18 +23,24 @@ export const Guard = async (action: Action, roles: string[]) => {
   const request: Request = action.request;
   const token = extractToken(request);
 
+  let user: user & { user_type: user_type };
+
   try {
-    const user = verify(token, config.get('JWT_SECRET')) as user & { user_type: user_type };
+    user = verify(token, config.get('JWT_SECRET')) as user & { user_type: user_type };
     request['user'] = user;
-
-    if (roles.length == 0) {
-      return true;
-    }
-
-    return roles.includes(user.user_type.type);
   } catch (err) {
     throw new UnauthorizedException('Invalid token');
   }
+
+  if (roles.length == 0) {
+    return true;
+  }
+
+  if (!roles.includes(user.user_type.type)) {
+    throw new UnauthorizedException('Not authorized');
+  }
+
+  return true;
 };
 
 function extractToken(req: Request): string {
