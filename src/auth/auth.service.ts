@@ -1,9 +1,8 @@
 import Container, { Service } from 'typedi';
 import { PrismaServce } from '../prisma/prisma.service';
-import { BadRequestException, UnauthorizedException } from '../utils/errors';
+import { BadRequestException } from '../utils/errors';
 import { compareSync } from 'bcrypt';
-import { sign, verify } from 'jsonwebtoken';
-import { config } from '../utils/env';
+import { sign } from 'jsonwebtoken';
 import { user, user_type } from '@prisma/client';
 
 @Service()
@@ -18,7 +17,6 @@ export class AuthService {
     }
 
     const ok = compareSync(password, user.hashed_password);
-
     if (!ok) {
       throw new BadRequestException('Invalid credentials');
     }
@@ -28,19 +26,13 @@ export class AuthService {
     return token;
   }
 
-  public me(token: string) {
-    try {
-      const payload = verify(token, config.get('JWT_SECRET'));
-
-      return {
-        user_id: payload.user_id,
-        email: payload.email,
-        first_name: payload.first_name,
-        last_name: payload.last_name,
-        user_type: payload.user_type.type,
-      };
-    } catch (err) {
-      throw new UnauthorizedException('Not logged in');
-    }
+  public me(user: user & { user_type: user_type }) {
+    return {
+      user_id: user.user_id,
+      email: user.email,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      user_type: user.user_type.type,
+    };
   }
 }
