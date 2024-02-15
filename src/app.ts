@@ -7,6 +7,7 @@ import { ErrorMiddleware } from './middlewares/error.middleware';
 import { UnknownRouteMiddleware } from './middlewares/unknown-route.middleware';
 import cors from 'cors';
 import { RoutingControllersOptions, useExpressServer } from 'routing-controllers';
+import { Guard } from './middlewares/auth.middleware';
 
 export default class App {
   private _server: express.Express;
@@ -40,6 +41,7 @@ export default class App {
       controllers,
       middlewares: [UnknownRouteMiddleware, ErrorMiddleware],
       defaultErrorHandler: false,
+      authorizationChecker: Guard,
     });
   }
 
