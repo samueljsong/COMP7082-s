@@ -8,7 +8,8 @@ import { UnknownRouteMiddleware } from './middlewares/unknown-route.middleware';
 import cors from 'cors';
 import { RoutingControllersOptions, useExpressServer } from 'routing-controllers';
 import { Guard } from './middlewares/auth.middleware';
-
+import { rateLimit } from 'express-rate-limit';
+import { config } from './utils/config.service';
 export default class App {
   private _server: express.Express;
   private _port: string | number = process.env.PORT || 3000;
@@ -33,6 +34,7 @@ export default class App {
     this._server.use(cookieParser());
     this._server.use(express.json());
     this._server.use(express.urlencoded({ extended: true }));
+    this.initializeRateLimiting();
   }
 
   private initializeRouting(controllers: RoutingControllersOptions['controllers']) {
@@ -43,6 +45,17 @@ export default class App {
       defaultErrorHandler: false,
       authorizationChecker: Guard,
     });
+  }
+
+  private initializeRateLimiting() {
+    this._server.use(
+      rateLimit({
+        windowMs: config.int('RATE_LIMIT_WINDOW') * 60 * 1000,
+        limit: config.int('RATE_LIMIT_USER_LIMIT'),
+        standardHeaders: 'draft-7',
+        legacyHeaders: false,
+      }),
+    );
   }
 
   public listen() {
