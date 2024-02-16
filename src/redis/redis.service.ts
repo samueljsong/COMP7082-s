@@ -1,7 +1,7 @@
 import { createClient } from 'redis';
 import { Service } from 'typedi';
-import { config } from '../utils/env';
 import { verify } from 'jsonwebtoken';
+import { config } from '../utils/config.service';
 
 @Service()
 export class RedisService {
@@ -9,10 +9,10 @@ export class RedisService {
 
   constructor() {
     const redisClient = createClient({
-      password: config.get('REDIS_PASSWORD'),
+      password: config.string('REDIS_PASSWORD'),
       socket: {
-        host: config.get('REDIS_HOST'),
-        port: 10226,
+        host: config.string('REDIS_HOST'),
+        port: config.int('REDIS_PORT'),
       },
     });
     this.client = redisClient;
@@ -28,7 +28,7 @@ export class RedisService {
   }
 
   public async blacklistToken(token: string) {
-    const payload: any = verify(token, config.get('JWT_SECRET'));
+    const payload: any = verify(token, config.string('JWT_SECRET'));
 
     const exp = payload.exp;
 

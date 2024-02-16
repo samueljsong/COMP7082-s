@@ -4,7 +4,7 @@ import { LoginDto } from './dtos/login.dto';
 import Container from 'typedi';
 import { AuthService } from './auth.service';
 import { Request, Response } from 'express';
-import { config } from '../utils/env';
+import { config } from '../utils/config.service';
 
 @Controller('/auth')
 export class AuthController {
@@ -14,13 +14,13 @@ export class AuthController {
   @Post('/login')
   public async login(@Body() dto: LoginDto, @Res() res: Response) {
     const token = await this.auth.login(dto.email, dto.password);
-    res.cookie(config.get('TOKEN'), token, { path: '/api', maxAge: 60 * 1000, httpOnly: true });
+    res.cookie(config.string('TOKEN'), token, { path: '/api', maxAge: 60 * 1000, httpOnly: true });
     return { statusCode: StatusCodes.OK, message: 'Successful Login' };
   }
 
   @Authorized()
   @Get('/logout')
-  public async logout(@CookieParam(config.get('TOKEN')) token: string) {
+  public async logout(@CookieParam(config.string('TOKEN')) token) {
     await this.auth.logout(token);
     return { statusCode: 200, message: 'Logout' };
   }
