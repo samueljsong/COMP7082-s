@@ -32,7 +32,7 @@ export class AuthService {
     return await this.redis.blacklistToken(token);
   }
 
-  public me(user: user & { user_type: user_type }) {
+  public me(user: user & { user_type: user_type, first_name: string, last_name: string}) {
     return {
       user_id: user.user_id,
       email: user.email,
