@@ -1,14 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
-import { Authorized, Body, Controller, CookieParam, Get, HttpCode, Post, Req, Res } from 'routing-controllers';
+import { Authorized, Body, CookieParam, Get, HttpCode, Post, Req, Res } from 'routing-controllers';
 import { LoginDto } from './dtos/login.dto';
-import Container from 'typedi';
 import { AuthService } from './auth.service';
 import { Request, Response } from 'express';
 import { config } from '../utils/config.service';
+import { ServiceController } from '../meta/routing.meta';
 
-@Controller('/auth')
+@ServiceController('/auth')
 export class AuthController {
-  private readonly auth = Container.get(AuthService);
+  constructor(private readonly auth: AuthService) {}
 
   @HttpCode(StatusCodes.OK)
   @Post('/login')

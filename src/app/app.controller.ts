@@ -1,10 +1,10 @@
-import Container from 'typedi';
 import { AppService } from './app.service';
-import { Controller, Get } from 'routing-controllers';
+import { Get } from 'routing-controllers';
+import { ServiceController } from '../meta/routing.meta';
 
-@Controller('')
+@ServiceController('')
 export class AppController {
-  private readonly app = Container.get(AppService);
+  constructor(private readonly app: AppService) {}
 
   @Get('')
   public root() {

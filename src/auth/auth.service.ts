@@ -1,15 +1,17 @@
-import Container, { Service } from 'typedi';
-import { PrismaServce } from '../prisma/prisma.service';
+import { Service } from 'typedi';
 import { BadRequestException } from '../utils/errors';
 import { compareSync } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { user, user_type } from '@prisma/client';
 import { RedisService } from '../redis/redis.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Service()
 export class AuthService {
-  private readonly prisma = Container.get(PrismaServce);
-  private readonly redis = Container.get(RedisService);
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly redis: RedisService,
+  ) {}
 
   public async login(email: string, password: string) {
     const user = await this.prisma.user.findUnique({ where: { email }, include: { user_type: true } });

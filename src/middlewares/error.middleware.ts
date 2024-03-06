@@ -3,8 +3,10 @@ import { HttpException } from '../utils/errors';
 import { BadRequestError, ExpressErrorMiddlewareInterface, HttpError, Middleware } from 'routing-controllers';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { ValidationError } from 'class-validator';
+import { Service } from 'typedi';
 
 @Middleware({ type: 'after', priority: 1 })
+@Service()
 export class ErrorMiddleware implements ExpressErrorMiddlewareInterface {
   error(error: Error, _req: Request, res: Response, _next: NextFunction): void {
     if (error instanceof HttpError && error instanceof BadRequestError) {
