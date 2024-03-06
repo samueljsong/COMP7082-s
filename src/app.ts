@@ -7,10 +7,14 @@ import cookieParser from 'cookie-parser';
 import { ErrorMiddleware } from './middlewares/error.middleware';
 import { UnknownRouteMiddleware } from './middlewares/unknown-route.middleware';
 import cors from 'cors';
-import { RoutingControllersOptions, useExpressServer } from 'routing-controllers';
+import { RoutingControllersOptions, useContainer, useExpressServer } from 'routing-controllers';
 import { Guard } from './middlewares/auth.middleware';
 import { rateLimit } from 'express-rate-limit';
 import { config } from './utils/config.service';
+import Container from 'typedi';
+
+useContainer(Container);
+
 export default class App {
   private _server: express.Express;
   private _port: string | number = process.env.PORT || 3000;
