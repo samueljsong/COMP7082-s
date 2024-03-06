@@ -1,10 +1,10 @@
-import { Controller, Get } from 'routing-controllers';
-import Container from 'typedi';
+import { Get } from 'routing-controllers';
 import { HealthService } from './health.service';
+import { ServiceController } from '../meta/routing.meta';
 
-@Controller('/health')
+@ServiceController('/health')
 export class HealthController {
-  private readonly health = Container.get(HealthService);
+  constructor(private readonly health: HealthService) {}
 
   @Get('')
   public ok() {
