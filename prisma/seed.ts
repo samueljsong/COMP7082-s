@@ -42,4 +42,57 @@ async function seed() {
   });
 }
 
-seed();
+async function fakeReports() {
+  // Create location tags
+  await prisma.location_tag.createMany({
+    data: [
+      { location_tag_id: 101, room: 101, building: 'Building A' },
+      { location_tag_id: 102, room: 102, building: 'Building B' },
+      { location_tag_id: 103, room: 103, building: 'Building A' },
+      { location_tag_id: 104, room: 104, building: 'Building B' },
+      // Add more location tags as needed
+    ],
+  });
+
+  // Create reports
+  await prisma.report.createMany({
+    data: [
+      { 
+        title: 'Active Report 1',
+        description: 'Description of active report 1 Description of active report 1 Description of active report 1 Description of active report 1 Description of active report 1',
+        date_submitted: new Date('2024-03-04'),
+        location_tag_id: 101,
+        status_id: 1,
+        user_id: 15,
+      },
+      { 
+        title: 'Active Report 2',
+        description: 'Description of active report 2',
+        date_submitted: new Date('2024-03-03'),
+        location_tag_id: 102,
+        status_id: 2,
+        user_id: 15,
+      },
+      { 
+        title: 'Active Report 3',
+        description: 'Description of active report 3',
+        date_submitted: new Date('2024-03-04'),
+        location_tag_id: 103,
+        status_id: 3,
+        user_id: 15,
+      },
+      { 
+        title: 'Active Report 4',
+        description: 'Description of active report 4',
+        date_submitted: new Date('2024-03-03'),
+        location_tag_id: 104,
+        status_id: 4,
+        user_id: 15,
+      },
+      // Add more reports as needed
+    ],
+  });
+}
+
+// seed();
+fakeReports();

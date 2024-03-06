@@ -17,4 +17,12 @@ export class UserService {
       },
     });
   }
+
+  public async getLocationTagById(locationTagId: number) {
+    return this.prisma.location_tag.findUnique({
+      where: {
+        location_tag_id: locationTagId,
+      },
+    });
+  }
 }
