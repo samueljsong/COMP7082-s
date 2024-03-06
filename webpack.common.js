@@ -1,7 +1,9 @@
-const path = require('path');
-const nodeExternals = require('webpack-node-externals');
+import path from 'path';
+import nodeExternals from 'webpack-node-externals';
 
-module.exports = {
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+export default {
   entry: {
     app: './src/index.ts',
   },
@@ -14,7 +16,7 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   output: {
-    filename: 'index.js',
+    filename: 'index.cjs',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
