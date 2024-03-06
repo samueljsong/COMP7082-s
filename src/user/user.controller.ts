@@ -12,9 +12,14 @@ export class UserController {
     return this.user.allUsers();
   }
 
-  @Get('/:userId/reports')
+  @Get('/:userId/reports')  
   async getUserReports(@Param('userId') userId: number) {
     return await this.user.getUserReports(userId);
+  }
+
+  @Get('/:locationTagId')
+  async getLocationTagById(@Param('locationTagId') locationTagId: number) {
+    return await this.user.getLocationTagById(locationTagId);
   }
 
 }
