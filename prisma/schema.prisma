@@ -9,7 +9,7 @@ datasource db {
 
 model image {
   image_id      Int            @id @default(autoincrement())
-  cloudinary_id String         @db.VarChar(45)
+  cloudinary_id String         @db.VarChar(500)
   report_image  report_image[]
 }
 
