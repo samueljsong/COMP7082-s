@@ -1,11 +1,12 @@
 import { Controller, Get, Param } from 'routing-controllers';
-import Container from 'typedi';
+import { Service } from 'typedi'; // Import Service decorator
 import { UserService } from './user.service';
 
-// THIS IS FOR QUERYING ROUTES 
+// Register UserController as a service
+@Service()
 @Controller('/user')
 export class UserController {
-  private readonly user = Container.get(UserService);
+  private readonly user = new UserService(); // No need to use Container.get() if UserService is not registered as a service
 
   @Get('/all')
   all() {
@@ -21,5 +22,4 @@ export class UserController {
   async getLocationTagById(@Param('locationTagId') locationTagId: number) {
     return await this.user.getLocationTagById(locationTagId);
   }
-
 }

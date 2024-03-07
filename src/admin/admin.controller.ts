@@ -1,8 +1,7 @@
 import { Controller, Get } from 'routing-controllers';
-import { Service } from 'typedi'; // Import Service decorator
+import { Service } from 'typedi';
 import { AdminService } from './admin.service';
 
-// Use both @Service() and @Controller() decorators
 @Service()
 @Controller('/admin')
 export class AdminController {
