@@ -65,6 +65,7 @@ export default class App {
   }
 
   public listen() {
+    console.log("PP")
     this._server.listen(this._port, () => console.log(`App listening on port ${this._port}`));
   }
 }
