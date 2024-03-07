@@ -1,7 +1,9 @@
 import { Controller, Get } from 'routing-controllers';
+import { Service } from 'typedi'; // Import Service decorator
 import { AdminService } from './admin.service';
 
-// THIS IS FOR QUERYING ROUTES
+// Use both @Service() and @Controller() decorators
+@Service()
 @Controller('/admin')
 export class AdminController {
   constructor(private readonly admin: AdminService) {}
