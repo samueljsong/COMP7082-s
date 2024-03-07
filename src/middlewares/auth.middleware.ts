@@ -41,7 +41,7 @@ export const Guard = async (action: Action, roles: string[]) => {
     throw new UnauthorizedException('Invalid token');
   }
 
-  if (roles.length == 0) {
+  if (!roles || roles.length == 0) {
     return true;
   }
 
@@ -49,6 +49,7 @@ export const Guard = async (action: Action, roles: string[]) => {
     throw new UnauthorizedException('Not authorized');
   }
 
+  console.log('guard done');
   return true;
 };
 

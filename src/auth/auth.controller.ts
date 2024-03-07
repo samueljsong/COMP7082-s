@@ -20,7 +20,7 @@ export class AuthController {
 
   @Authorized()
   @Get('/logout')
-  public async logout(@CookieParam(config.string('TOKEN')) token) {
+  public async logout(@CookieParam(config.string('TOKEN')) token: string) {
     await this.auth.logout(token);
     return { statusCode: 200, message: 'Logout' };
   }
