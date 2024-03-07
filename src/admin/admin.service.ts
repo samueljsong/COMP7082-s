@@ -9,4 +9,20 @@ export class AdminService {
   public allUsers() {
     return this.prisma.user.findMany();
   }
+
+  public async getUserReportsAdmin(userId: number) {
+    return this.prisma.report.findMany({
+      where: {
+        user_id: userId,
+      },
+    });
+  }
+
+  public async getUserReportAdmin(reportId: number) {
+    return this.prisma.report.findMany({
+      where: {
+        report_id: reportId,
+      },
+    });
+  }
 }
