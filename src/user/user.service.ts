@@ -15,6 +15,13 @@ export class UserService {
       where: {
         user_id: userId,
       },
+      include: {
+        report_image: {
+          include: {
+            image: true,
+          }
+        }
+      }
     });
   }
 

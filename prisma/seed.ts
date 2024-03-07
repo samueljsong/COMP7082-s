@@ -93,6 +93,11 @@ async function fakeReports() {
     ],
   });
 }
-
+async function cleanUp() {
+  await prisma.report_image.deleteMany();
+  await prisma.image.deleteMany();
+  await prisma.report.deleteMany();
+}
 // seed();
-fakeReports();
+// fakeReports();
+cleanUp();
