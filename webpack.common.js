@@ -3,6 +3,12 @@ import nodeExternals from 'webpack-node-externals';
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
+let outputPath = path.resolve(__dirname, 'dist');
+
+if (process.platform === 'win32') {
+  outputPath = outputPath.substring(3);
+}
+
 export default {
   entry: {
     app: './src/index.ts',
@@ -17,7 +23,7 @@ export default {
   },
   output: {
     filename: 'index.cjs',
-    path: path.resolve(__dirname, 'dist'),
+    path: outputPath,
     clean: true,
   },
 };
