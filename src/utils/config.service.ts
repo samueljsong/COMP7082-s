@@ -5,7 +5,7 @@ export const config = {
     const value = process.env[key];
 
     if (!value) {
-      throw new InternalServerError('ENV Variable does not exist');
+      throw new InternalServerError(`ENV variable, ${key} does not exist`);
     }
 
     return value;
