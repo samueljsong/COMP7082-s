@@ -17,10 +17,11 @@ useContainer(Container);
 
 export default class App {
   private _server: express.Express;
-  private _port: string | number = process.env.PORT || 3000;
+  private _port: string | number;
 
   constructor(controllers: RoutingControllersOptions['controllers']) {
     this._server = express();
+    this._port = process.env.PORT || 3000;
     this.initializeMiddlewares();
     this.initializeRouting(controllers);
   }
