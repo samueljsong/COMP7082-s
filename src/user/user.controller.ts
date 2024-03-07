@@ -1,4 +1,4 @@
-import { Get, Param } from 'routing-controllers';
+import { Get, Post, Param } from 'routing-controllers';
 import { UserService } from './user.service';
 import { ServiceController } from '../meta/routing.meta';
 
@@ -20,4 +20,7 @@ export class UserController {
   async getLocationTagById(@Param('locationTagId') locationTagId: number) {
     return await this.user.getLocationTagById(locationTagId);
   }
+
+  @Post('/createReport')
+  async createUserReport(@Param('userId') userId: number) {}
 }
