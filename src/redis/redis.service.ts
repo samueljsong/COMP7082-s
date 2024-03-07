@@ -2,6 +2,7 @@ import { createClient } from 'redis';
 import { Service } from 'typedi';
 import { verify } from 'jsonwebtoken';
 import { config } from '../utils/config.service';
+import { UnauthorizedException } from '../utils/errors';
 
 @Service()
 export class RedisService {
@@ -28,7 +29,12 @@ export class RedisService {
   }
 
   public async blacklistToken(token: string) {
-    const payload: any = verify(token, config.string('JWT_SECRET'));
+    let payload: any;
+    try {
+      payload = verify(token, config.string('JWT_SECRET'));
+    } catch (error) {
+      throw new UnauthorizedException('Invalid token');
+    }
 
     const exp = payload.exp;
 
