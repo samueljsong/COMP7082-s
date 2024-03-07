@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from 'routing-controllers';
-import { Service } from 'typedi'; 
+import { Service } from 'typedi';
 import { UserService } from './user.service';
 
 @Service()
@@ -12,7 +12,7 @@ export class UserController {
     return this.user.allUsers();
   }
 
-  @Get('/:userId/reports')  
+  @Get('/:userId/reports')
   async getUserReports(@Param('userId') userId: number) {
     return await this.user.getUserReports(userId);
   }
