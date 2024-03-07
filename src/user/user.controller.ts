@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from 'routing-controllers';
+import { Controller, Get, Post, Param } from 'routing-controllers';
 import Container from 'typedi';
 import { UserService } from './user.service';
 
@@ -20,6 +20,11 @@ export class UserController {
   @Get('/:locationTagId')
   async getLocationTagById(@Param('locationTagId') locationTagId: number) {
     return await this.user.getLocationTagById(locationTagId);
+  }
+
+  @Post('/createReport')
+  async createUserReport(@Param('userId') userId: number) {
+
   }
 
 }
