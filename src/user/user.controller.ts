@@ -1,12 +1,11 @@
 import { Controller, Get, Param } from 'routing-controllers';
-import { Service } from 'typedi'; // Import Service decorator
+import { Service } from 'typedi'; 
 import { UserService } from './user.service';
 
-// Register UserController as a service
 @Service()
 @Controller('/user')
 export class UserController {
-  private readonly user = new UserService(); // No need to use Container.get() if UserService is not registered as a service
+  private readonly user = new UserService();
 
   @Get('/all')
   all() {
