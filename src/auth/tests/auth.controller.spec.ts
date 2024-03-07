@@ -3,12 +3,12 @@ import 'dotenv/config';
 
 import { vi, describe, test, it, expect, beforeEach } from 'vitest';
 import { AuthService } from '../auth.service';
-import { RedisService } from '../../redis/redis.service';
 import prisma from '../../prisma/__mocks__/prisma.service';
 import { user } from '@prisma/client';
 import { AuthController } from '../auth.controller';
 import { Request, Response } from 'express';
 import { BadRequestException } from '../../utils/errors';
+import redis from '../../redis/__mocks__/redis.service';
 
 const testUser: user = {
   user_id: 1,
@@ -20,6 +20,7 @@ const testUser: user = {
 };
 
 vi.mock('/src/prisma/prisma.service');
+vi.mock('/src/redis/redis.service');
 vi.mock('jsonwebtoken', async (importOriginal) => {
   return {
     ...(await importOriginal<typeof import('jsonwebtoken')>()),
@@ -29,7 +30,7 @@ vi.mock('jsonwebtoken', async (importOriginal) => {
 });
 
 describe('AuthController', () => {
-  const auth = new AuthService(prisma, new RedisService());
+  const auth = new AuthService(prisma, redis);
   const authController = new AuthController(auth);
 
   beforeEach(() => {
@@ -67,6 +68,8 @@ describe('AuthController', () => {
   describe('logout', () => {
     const token = 'token';
     it('should logout if token valid and not blacklisted', async () => {
+      redis.blacklistToken.mockImplementationOnce(async (token: string) => {});
+
       const data = await authController.logout(token);
 
       expect(data).toHaveProperty('statusCode', 200);
