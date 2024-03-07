@@ -31,6 +31,11 @@ export class ErrorMiddleware implements ExpressErrorMiddlewareInterface {
 
 const handleValidationErrors = (error: BadRequestError) => {
   const errors: ValidationError[] = (error as BadRequestError & { errors: ValidationError[] }).errors;
+
+  if (!errors) {
+    return error.message;
+  }
+
   const message = errors
     .map((error) => {
       const constraints = Object.values(error.constraints || []);
