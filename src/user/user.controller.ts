@@ -1,11 +1,10 @@
-import { Controller, Get, Param } from 'routing-controllers';
-import { Service } from 'typedi';
+import { Get, Param } from 'routing-controllers';
 import { UserService } from './user.service';
+import { ServiceController } from '../meta/routing.meta';
 
-@Service()
-@Controller('/user')
+@ServiceController('/user')
 export class UserController {
-  private readonly user = new UserService();
+  constructor(private readonly user: UserService) {}
 
   @Get('/all')
   all() {
