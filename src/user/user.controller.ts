@@ -1,7 +1,6 @@
 import { UserService } from './user.service';
 import { ServiceController } from '../meta/routing.meta';
-import { Controller, Get, Post, Param, Body, Req, Res, Authorized} from 'routing-controllers';
-import Container from 'typedi';
+import { Get, Post, Param, Body, Req, Authorized} from 'routing-controllers';
 import { ReportDto } from './dtos/report.dto';
 
 @ServiceController('/user')

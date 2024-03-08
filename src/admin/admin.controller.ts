@@ -1,5 +1,4 @@
-import { Controller, Get, Param } from 'routing-controllers';
-import { Service } from 'typedi'
+import { Get, Param } from 'routing-controllers';
 import { AdminService } from './admin.service';
 import { ServiceController } from '../meta/routing.meta';
 
