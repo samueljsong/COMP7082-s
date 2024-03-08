@@ -20,6 +20,13 @@ const testUser: user = {
 };
 
 vi.mock('/src/prisma/prisma.service');
+vi.mock('redis', () => {
+  const createClient = vi.fn(() => ({
+    connect: vi.fn(),
+  }));
+
+  return { createClient };
+});
 vi.mock('/src/redis/redis.service');
 vi.mock('jsonwebtoken', async (importOriginal) => {
   return {
