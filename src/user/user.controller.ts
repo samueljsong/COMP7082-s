@@ -1,6 +1,10 @@
 import { UserService } from './user.service';
 import { ServiceController } from '../meta/routing.meta';
+<<<<<<< HEAD
 import { Get, Post, Param, Body, Req, Authorized } from 'routing-controllers';
+=======
+import { Get, Post, Param, Body, Req, Authorized} from 'routing-controllers';
+>>>>>>> user
 import { ReportDto } from './dtos/report.dto';
 
 @ServiceController('/user')
@@ -20,15 +24,15 @@ export class UserController {
   }
 
   @Authorized()
-  @Get('/:locationTagId')
+  @Get('/locationTagIds/:locationTagId')
   async getLocationTagById(@Param('locationTagId') locationTagId: number) {
     return await this.user.getLocationTagById(locationTagId);
   }
 
   @Authorized()
-  @Get('/all')
+  @Get('/allLocations')
   async allLocations() {
-    return this.user.allUsers();
+    return await this.user.getAllLocationTags();
   }
 
   @Authorized()
