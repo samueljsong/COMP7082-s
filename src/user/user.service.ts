@@ -34,7 +34,7 @@ export class UserService {
   }
 
   public async getAllLocationTags() {
-    return this.prisma.location_tag.findMany()
+    return this.prisma.location_tag.findMany();
   }
 
   public async createUserReport(user_id: number, location_tag_id: number, title: string, description: string, imageTag: string): Promise<boolean> {
@@ -72,7 +72,6 @@ export class UserService {
                     }
                 }
             )
-            console.log(report_image);
         }
         return true
     } catch (error) {
