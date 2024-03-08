@@ -5,7 +5,16 @@ import request from 'supertest';
 import App from '../src/app';
 import { AppController } from '../src/app/app.controller';
 import { HealthController } from '../src/health/health.controller';
-import { beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
+
+vi.mock('/src/utils/config.service', () => {
+  const config = {
+    string: vi.fn(),
+    int: vi.fn(() => 1),
+  };
+
+  return { config };
+});
 
 describe('App E2E', () => {
   let app: App;
