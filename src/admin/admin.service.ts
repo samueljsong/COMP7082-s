@@ -23,6 +23,13 @@ export class AdminService {
       where: {
         report_id: reportId,
       },
+      include: {
+        report_image: {
+          include: {
+            image: true,
+          }
+        }
+      }
     });
   }
 
