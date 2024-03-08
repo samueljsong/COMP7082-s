@@ -21,7 +21,7 @@ export class UserController {
   }
 
   @Authorized()
-  @Get('/:locationTagId')
+  @Get('/locationTagIds/:locationTagId')
   async getLocationTagById(@Param('locationTagId') locationTagId: number) {
     return await this.user.getLocationTagById(locationTagId);
   }

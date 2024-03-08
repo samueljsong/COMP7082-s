@@ -65,7 +65,6 @@ export class UserService {
                     }
                 }
             )
-            console.log(report_image);
         }
         return true
     } catch (error) {
