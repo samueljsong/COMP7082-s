@@ -3,9 +3,9 @@ import 'dotenv/config';
 
 import { vi, describe, test, it, expect, beforeEach } from 'vitest';
 import { AuthService } from '../auth.service';
-import { RedisService } from '../../redis/redis.service';
 import prisma from '../../prisma/__mocks__/prisma.service';
 import { user } from '@prisma/client';
+import redis from '../../redis/__mocks__/redis.service';
 
 const testUser: user = {
   user_id: 1,
@@ -17,9 +17,10 @@ const testUser: user = {
 };
 
 vi.mock('/src/prisma/prisma.service');
+vi.mock('/src/redis/redis.service');
 
 describe('AuthService', () => {
-  const auth = new AuthService(prisma, new RedisService());
+  const auth = new AuthService(prisma, redis);
 
   beforeEach(() => {
     vi.restoreAllMocks();
