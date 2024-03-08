@@ -40,4 +40,15 @@ export class AdminService {
       },
     });
   }
+
+  public async updateReportStateAdmin(reportId: number, state: number) {
+    return this.prisma.report.update({
+      where: {
+        report_id: reportId,
+      },
+      data: {
+        status_id: state
+      }
+    });
+  }
 }

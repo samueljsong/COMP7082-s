@@ -1,4 +1,4 @@
-import { Get, Param } from 'routing-controllers';
+import { Get, Param, Patch } from 'routing-controllers';
 import { AdminService } from './admin.service';
 import { ServiceController } from '../meta/routing.meta';
 
@@ -25,5 +25,10 @@ export class AdminController {
   @Get('/:locationTagId')
   async getLocationById(@Param('locationTagId') locationTagId: number) {
     return await this.admin.getLocationByIdAdmin(locationTagId);
+  }
+
+  @Patch('/:reportId/change-state/:state')
+  async updateReportState(@Param('reportId') reportId: number, @Param('state') state: number) {
+    return await this.admin.updateReportStateAdmin(reportId, state);
   }
 }
