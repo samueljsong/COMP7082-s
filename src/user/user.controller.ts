@@ -27,9 +27,9 @@ export class UserController {
   }
 
   @Authorized()
-  @Get('/all')
+  @Get('/allLocations')
   async allLocations() {
-    return this.user.allUsers();
+    return await this.user.getAllLocationTags();
   }
 
   @Authorized()
