@@ -12,6 +12,7 @@ import { Guard } from './middlewares/auth.middleware';
 import { rateLimit } from 'express-rate-limit';
 import { config } from './utils/config.service';
 import Container from 'typedi';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 useContainer(Container);
 
@@ -58,6 +59,11 @@ export default class App {
       rateLimit({
         windowMs: config.int('RATE_LIMIT_WINDOW') * 60 * 1000,
         limit: config.int('RATE_LIMIT_USER_LIMIT'),
+        message: {
+          statusCode: StatusCodes.TOO_MANY_REQUESTS,
+          error: ReasonPhrases.TOO_MANY_REQUESTS,
+          message: 'too many requests',
+        },
         standardHeaders: 'draft-7',
         legacyHeaders: false,
       }),
@@ -65,7 +71,7 @@ export default class App {
   }
 
   public listen() {
-    console.log("PP")
+    console.log('PP');
     this._server.listen(this._port, () => console.log(`App listening on port ${this._port}`));
   }
 }
