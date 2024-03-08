@@ -2,7 +2,9 @@ name: Development
 
 on:
   push:
-    branches: dev
+    branches:
+      - dev
+      - ci-test-fix
 
 jobs:
   lint:
