@@ -25,9 +25,6 @@ export class UserController {
     return await this.user.getLocationTagById(locationTagId);
   }
 
-  @Post('/createReport')
-  async createUserReport(@Param('userId') userId: number) {}
-}
   @Authorized()
   @Get('/allLocations')
   async allLocations() {
