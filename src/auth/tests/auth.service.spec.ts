@@ -18,6 +18,19 @@ const testUser: user = {
 
 vi.mock('/src/prisma/prisma.service');
 vi.mock('/src/redis/redis.service');
+vi.mock('/src/utils/config.service', () => {
+  const config = {
+    string: vi.fn(),
+  };
+
+  return { config };
+});
+vi.mock('jsonwebtoken', async (importOriginal) => {
+  return {
+    ...(await importOriginal<typeof import('jsonwebtoken')>()),
+    sign: () => 'fake token',
+  };
+});
 
 describe('AuthService', () => {
   const auth = new AuthService(prisma, redis);
