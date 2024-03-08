@@ -1,18 +1,18 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class ReportDto {
-    @IsNumber()
-    @IsNotEmpty()
-    locationTagId: number;
+  @IsNumber()
+  @IsNotEmpty()
+  locationTagId: number;
 
-    @IsString()
-    @IsNotEmpty()
-    subject: string;
-    
-    @IsString()
-    @IsNotEmpty()
-    description: string;
+  @IsString()
+  @IsNotEmpty()
+  subject: string;
 
-    @IsString()
-    cloudinaryUrl: string;
+  @IsString()
+  @IsNotEmpty()
+  description: string;
+
+  @IsString()
+  cloudinaryUrl: string;
 }
