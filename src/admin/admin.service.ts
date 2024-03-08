@@ -9,4 +9,28 @@ export class AdminService {
   public allUsers() {
     return this.prisma.user.findMany();
   }
+
+  public async getUserReportsAdmin(userId: number) {
+    return this.prisma.report.findMany({
+      where: {
+        user_id: userId,
+      },
+    });
+  }
+
+  public async getUserReportAdmin(reportId: number) {
+    return this.prisma.report.findUnique({
+      where: {
+        report_id: reportId,
+      },
+    });
+  }
+
+  public async getLocationByIdAdmin(locationTagId: number) {
+    return this.prisma.location_tag.findUnique({
+      where: {
+        location_tag_id: locationTagId,
+      },
+    });
+  }
 }
