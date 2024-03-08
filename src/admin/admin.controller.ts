@@ -21,4 +21,9 @@ export class AdminController {
   async getUserReport(@Param('reportId') reportId: number) {
     return await this.admin.getUserReportAdmin(reportId);
   }
+
+  @Get('/:locationTagId')
+  async getLocationById(@Param('locationTagId') locationTagId: number) {
+    return await this.admin.getLocationByIdAdmin(locationTagId);
+  }
 }
