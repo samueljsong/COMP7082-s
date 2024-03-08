@@ -19,9 +19,9 @@ export class UserService {
         report_image: {
           include: {
             image: true,
-          }
-        }
-      }
+          },
+        },
+      },
     });
   }
 

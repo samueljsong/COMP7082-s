@@ -29,9 +29,9 @@ export class UserController {
   async createUserReport(@Param('userId') userId: number) {}
 }
   @Authorized()
-  @Get('/all')
+  @Get('/allLocations')
   async allLocations() {
-    return this.user.allUsers();
+    return await this.user.getAllLocationTags();
   }
 
   @Authorized()
