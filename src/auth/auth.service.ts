@@ -5,6 +5,7 @@ import { sign } from 'jsonwebtoken';
 import { user, user_type } from '@prisma/client';
 import { RedisService } from '../redis/redis.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { config } from '../utils/config.service';
 
 @Service()
 export class AuthService {
@@ -25,7 +26,7 @@ export class AuthService {
       throw new BadRequestException('Invalid credentials');
     }
 
-    const token = sign(user, process.env.JWT_SECRET!, { expiresIn: '1h' });
+    const token = sign(user, config.string('JWT_SECRET'), { expiresIn: '1h' });
 
     return token;
   }
