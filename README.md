@@ -1,24 +1,25 @@
-<h1 align='center'>🍚 Backend 🍚</h1>
+<h1 align='center'>🍚 Repit 🍚</h1>
 
 <h2 align='center' style='color:gray'>Backend for Repit</h2>
 
 
 <p align='center'>
-  <img src="https://img.shields.io/badge/-Express-fff?style=for-the-badge&logo=Express&logoColor=000" />&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/-express.js-%23404d59?style=for-the-badge&logo=Express&logoColor=%2361DAFB" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-TypeScript-007ACC?style=for-the-badge&logo=TypeScript&logoColor=fff" />&nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=fff" />&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-NPM-CB3837?style=for-the-badge&logo=NPM&logoColor=fff" />&nbsp;&nbsp;
 </p>
 <p align='center'>
   <img src="https://img.shields.io/badge/-Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=fff" />&nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/-Nodemon-76D04B?style=for-the-badge&logo=Nodemon&logoColor=fff" />&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=fff" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=000" />&nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/-Jest-C21325?style=for-the-badge&logo=Jest&logoColor=fff" />&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/-vitest-C21325?style=for-the-badge&logo=vitest&logoColor=fff" />&nbsp;&nbsp;
 </p>
 <p align='center'>
   <img src="https://img.shields.io/badge/-MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=fff" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-Prisma-22314a?style=for-the-badge&logo=Prisma&logoColor=fff" />&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/webpack-2B3A42.svg?style=for-the-badge&logo=webpack&logoColor=8dd6f9" />&nbsp;&nbsp;
 </p>
 
 <h2>Table of Contents</h2>
@@ -40,12 +41,13 @@
 - [🚀 Production](#-production)
 - [🧪 Testing](#-testing)
   - [Running Tests](#running-tests)
+  - [Writing Tests](#writing-tests)
 
 ## 🛠️ Setup
 ### ⬇️ Installation
 
 #### 🐳 Docker
-Install [Docker](https://docs.docker.com/desktop/install/linux-install/)
+Install [Docker](https://docs.docker.com/desktop/install/linux-install/) (optional)
 
 #### 📦 Project Setup
 Install Dependencies
@@ -79,8 +81,14 @@ Pulling schema changes from database
 ```javascript
 npx prisma db pull
 ```
+Updating the schema
+```javascript
+npx prisma db push
+```
+
 Generating the Prisma Client (Needed for using the ORM in code)
 - Make sure you stop the server before running it
+- Should be used whenever the schema changes
 ```javascript
 npx prisma generate
 ```
@@ -137,7 +145,7 @@ class BadRequestException extends HttpException {
 │  └── login.dto.ts      
 │  
 ├──📂 tests             // Tests for controllers and services
-│  └── auth.spec.ts     
+│  └── auth.controller.spec.ts     
 │  
 ├── auth.controller.ts  // Mapping routes
 ├── auth.service.ts     // For the logic
@@ -159,10 +167,10 @@ export class LoginDto {
 
 `auth.controller.ts`
 ```typescript
-@Controller('/auth')
+@ServiceController('/auth')
 export class AuthController {
-  // Use Container.get(<ServiceName>) to inject service
-  private readonly auth = Container.get(AuthService);
+  // use constructor injection
+  constructor(private readonly auth: AuthService) {}
   
   @Post('login')
   login(@Body() dto: LoginDto) {
@@ -174,9 +182,11 @@ export class AuthController {
 
 `auth.service.ts`
 ```typescript
-// Make sure to annoate with the '@Service' decorator
 @Service()
 export class AuthService {
+
+  constructor(private readonly prisma: PrismaService) {}
+
   public login(dto: LoginDto) {
     // check if user exist in db
     // compare password against hash in db
@@ -202,4 +212,8 @@ npm run start:prod
 npm run test            // Unit + Integration Test
 npm run test:e2e        // End to End Tests
 npm run test:coverage   // Coverage
+npm run ui:test         // View and run tests in browser
 ```
+
+### Writing Tests
+🚧 In progress 🚧
