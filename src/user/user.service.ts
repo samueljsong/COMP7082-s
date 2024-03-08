@@ -68,13 +68,12 @@ export class UserService {
           },
         });
         const image_id = image.image_id;
-        const report_image = await this.prisma.report_image.create({
+        await this.prisma.report_image.create({
           data: {
             report_id,
             image_id,
           },
         });
-        console.log(report_image);
       }
       return true;
     } catch (error) {
