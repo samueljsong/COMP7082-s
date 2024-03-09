@@ -19,6 +19,26 @@ const testUser: user = {
   last_name: 'test',
 };
 
+const regularUser: user = {
+  user_id: 2,
+  user_type_id: 1,
+  email: 'test@my.bcit.ca',
+  hashed_password: '$2a$12$mYKlYQwyz4rA7ojMiqSCseTXbZ3YQ6j4y/wpfsxtYto109Tijt2nq',
+  first_name: 'test',
+  last_name: 'test',
+};
+
+const adminUser: user = {
+  user_id: 16,
+  user_type_id: 2,
+  email: 'jasonlui40@my.bcit.ca',
+  hashed_password: '$2a$10$aP7vsjweB9VHe/a8338.hupLw9k/IC76WX9wAzdnXbFcMiR9hUTw2',
+  first_name: 'Jason',
+  last_name: 'Lui',
+};
+
+
+
 vi.mock('/src/prisma/prisma.service');
 vi.mock('/src/redis/redis.service');
 vi.mock('/src/utils/config.service', () => {
@@ -53,21 +73,39 @@ describe('AuthController', () => {
   });
 
   describe('login', () => {
-    it('should have statusCode and message in response', async () => {
-      prisma.user.findUnique.mockResolvedValueOnce(testUser);
+    it('should have statusCode and message in response for regular user', async () => {
+      prisma.user.findUnique.mockResolvedValueOnce(regularUser); // Use regular user data
       const response = { cookie: vi.fn() } as unknown as Response;
 
-      const data = await authController.login({ email: testUser.email, password: 'asd' }, response);
+      const data = await authController.login({ email: regularUser.email, password: 'asd' }, response);
 
       expect(data).toHaveProperty('statusCode');
       expect(data).toHaveProperty('message');
     });
 
-    it('should set the cookie if ok', async () => {
-      prisma.user.findUnique.mockResolvedValueOnce(testUser);
+    it('should set the cookie if ok for regular user', async () => {
+      prisma.user.findUnique.mockResolvedValueOnce(regularUser); // Use regular user data
       const response = { cookie: vi.fn() } as unknown as Response;
 
-      await authController.login({ email: testUser.email, password: 'asd' }, response);
+      await authController.login({ email: regularUser.email, password: 'asd' }, response);
+      expect(response.cookie).toBeCalled();
+    });
+
+    it('should have statusCode and message in response for admin user', async () => {
+      prisma.user.findUnique.mockResolvedValueOnce(adminUser); // Use admin user data
+      const response = { cookie: vi.fn() } as unknown as Response;
+
+      const data = await authController.login({ email: adminUser.email, password: '!A123456789' }, response);
+
+      expect(data).toHaveProperty('statusCode');
+      expect(data).toHaveProperty('message');
+    });
+
+    it('should set the cookie if ok for admin user', async () => {
+      prisma.user.findUnique.mockResolvedValueOnce(adminUser); // Use admin user data
+      const response = { cookie: vi.fn() } as unknown as Response;
+
+      await authController.login({ email: adminUser.email, password: '!A123456789' }, response);
       expect(response.cookie).toBeCalled();
     });
   });
