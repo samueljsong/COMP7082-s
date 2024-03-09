@@ -37,8 +37,6 @@ const adminUser: user = {
   last_name: 'Lui',
 };
 
-
-
 vi.mock('/src/prisma/prisma.service');
 vi.mock('/src/redis/redis.service');
 vi.mock('/src/utils/config.service', () => {
