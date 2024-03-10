@@ -114,26 +114,22 @@ describe('UserController', () => {
         expect(result).toStrictEqual(expected);
     });
 
-    it ('should fail to create reports', async () => {
+    it('should fail to create reports', async () => {
         const expected = {
             "statusCode": 500,
             "message": "Failed to create report"
         };
 
         const request = {
-                user: {
-                    user_id: adminUser.user_id,
-                    email: adminUser.email,
-                    first_name: adminUser.first_name,
-                    last_name: adminUser.last_name,
-                    user_type: 'admin',
-                },
-            } as unknown as Request;
-            prisma.report.create.mockResolvedValueOnce(null);
-
-            prisma.image.create.mockResolvedValueOnce(null);
-
-            prisma.report_image.create.mockResolvedValueOnce(null);
+            user: {
+                user_id: adminUser.user_id,
+                email: adminUser.email,
+                first_name: adminUser.first_name,
+                last_name: adminUser.last_name,
+                user_type: 'admin',
+            },
+        } as unknown as Request;
+        prisma.report.create.mockRejectedValueOnce(new Error("Failed to create report"));
 
         const result = await controller.createUserReport(fakeReport, request);
         expect(result).toStrictEqual(expected);
