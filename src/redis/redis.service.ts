@@ -9,13 +9,18 @@ export class RedisService {
   private readonly client: ReturnType<typeof createClient>;
 
   constructor() {
-    const redisClient = createClient({
-      password: config.string('REDIS_PASSWORD'),
+    const options: Parameters<typeof createClient>[0] = {
       socket: {
         host: config.string('REDIS_HOST'),
         port: config.int('REDIS_PORT'),
       },
-    });
+    };
+
+    if (config.string('NODE_ENV') === 'prod') {
+      options.password = config.string('REDIS_PASSWORD');
+    }
+
+    const redisClient = createClient(options);
     this.client = redisClient;
     this.client
       .connect()
