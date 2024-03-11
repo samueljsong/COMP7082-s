@@ -1,10 +1,10 @@
-FROM node:16
+FROM node:20
 
 COPY . ./app
 
 WORKDIR /app
 
-RUN npm ci
+RUN npm install
 
 EXPOSE 3000
 
