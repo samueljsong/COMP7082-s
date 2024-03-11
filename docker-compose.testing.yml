@@ -1,0 +1,23 @@
+# Test DB for Integration and E2E
+
+version: '3.8'
+
+services:
+  db:
+    container_name: db
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=example
+      - MYSQL_DATABASE=repit
+      - MYSQL_USER=repit-user
+      - MYSQL_PASSWORD=repit-password
+    ports:
+      - 3306:3306
+
+  tokens:
+    container_name: tokens
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
