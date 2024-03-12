@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { NotFoundException } from '../utils/errors';
 import { ExpressMiddlewareInterface, Middleware } from 'routing-controllers';
-import { injectable } from 'tsyringe';
+import { Service } from '../meta/routing.meta';
 
-@injectable()
+@Service()
 @Middleware({ type: 'after', priority: 2 })
 // @Service()
 export class UnknownRouteMiddleware implements ExpressMiddlewareInterface {

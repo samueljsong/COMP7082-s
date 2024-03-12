@@ -5,9 +5,10 @@ import { user, user_type } from '@prisma/client';
 import { RedisService } from '../redis/redis.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { config } from '../utils/config.service';
-import { inject, injectable } from 'tsyringe';
+import { inject } from 'tsyringe';
+import { Service } from '../meta/routing.meta';
 
-@injectable()
+@Service()
 export class AuthService {
   constructor(
     @inject(PrismaService) private readonly prisma: PrismaService,

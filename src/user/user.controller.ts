@@ -2,10 +2,11 @@ import { UserService } from './user.service';
 import { ServiceController } from '../meta/routing.meta';
 import { Get, Post, Param, Body, Req, Authorized } from 'routing-controllers';
 import { ReportDto } from './dtos/report.dto';
+import { inject } from 'tsyringe';
 
 @ServiceController('/user')
 export class UserController {
-  constructor(private readonly user: UserService) {}
+  constructor(@inject(UserService) private readonly user: UserService) {}
 
   @Authorized()
   @Get('/all')

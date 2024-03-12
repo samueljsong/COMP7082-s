@@ -1,4 +1,4 @@
-import { Service } from 'typedi';
+import { Service } from '../meta/routing.meta';
 
 @Service()
 export class AppService {

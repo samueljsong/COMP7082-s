@@ -3,10 +3,10 @@ import { HttpException } from '../utils/errors';
 import { BadRequestError, ExpressErrorMiddlewareInterface, HttpError, Middleware } from 'routing-controllers';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { ValidationError } from 'class-validator';
-import { injectable } from 'tsyringe';
+import { Service } from '../meta/routing.meta';
 
 @Middleware({ type: 'after', priority: 1 })
-@injectable()
+@Service()
 export class ErrorMiddleware implements ExpressErrorMiddlewareInterface {
   error(error: Error, _req: Request, res: Response, _next: NextFunction): void {
     if (error instanceof HttpError && error instanceof BadRequestError) {
