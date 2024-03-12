@@ -51,6 +51,7 @@
     "redis": "^4.6.13",
     "reflect-metadata": "^0.2.1",
     "routing-controllers": "^0.10.4",
+    "tsyringe": "^4.8.0",
     "typedi": "^0.10.0"
   },
   "devDependencies": {
