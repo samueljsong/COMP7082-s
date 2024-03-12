@@ -10,7 +10,7 @@
   "scripts": {
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
     "format": "prettier \"{src,test}/**/*.ts\" --write",
-    "create-test-env": "./scripts/create-test-env.sh",
+    "env:test": "./scripts/create-test-env.sh",
     "test": "vitest run --config vitest.config.ts",
     "test:int": "dotenv -e .env.test -- vitest run --config vitest.config.integration.ts",
     "test:coverage": "vitest run --config vitest.config.coverage.ts",
