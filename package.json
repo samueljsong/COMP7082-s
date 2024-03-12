@@ -25,10 +25,10 @@
     "docker:dev": "docker compose -f docker-compose.dev.yml up -d && docker logs -f server",
     "start:dev": "dotenv -e .env -- npm run dev",
     "start:test": "./scripts/create-test-env.sh && dotenv -e .env.test -- npm run dev",
-    "dev:studio": "dotenv -e .env -- prisma studio",
-    "test:studio": "dotenv -e .env.test -- prisma studio",
-    "test:clean": "docker compose -f docker-compose.testing.yml down -v",
-    "dev:clean": "docker compose -f docker-compose.dev.yml down -v"
+    "studio:dev": "dotenv -e .env -- prisma studio",
+    "studio:test": "dotenv -e .env.test -- prisma studio",
+    "clean:test": "docker compose -f docker-compose.testing.yml down -v",
+    "clean:dev": "docker compose -f docker-compose.dev.yml down -v"
   },
   "repository": {
     "type": "git",
