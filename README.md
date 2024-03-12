@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=fff" />&nbsp;&nbsp;
   <img src="https://img.shields.io/badge/-Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=000" />&nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/-vitest-C21325?style=for-the-badge&logo=vitest&logoColor=fff" />&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/-vitest-3d4120?style=for-the-badge&logo=vitest&logoColor=fac22b" />&nbsp;&nbsp;
 </p>
 <p align='center'>
   <img src="https://img.shields.io/badge/-MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=fff" />&nbsp;&nbsp;
