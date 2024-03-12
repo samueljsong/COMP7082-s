@@ -2,9 +2,9 @@ import { createClient } from 'redis';
 import { verify } from 'jsonwebtoken';
 import { config } from '../utils/config.service';
 import { UnauthorizedException } from '../utils/errors';
-import { injectable } from 'tsyringe';
+import { Service } from '../meta/routing.meta';
 
-@injectable()
+@Service({ scope: 'global' })
 export class RedisService {
   private readonly client: ReturnType<typeof createClient>;
 

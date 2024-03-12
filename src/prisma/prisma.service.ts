@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { injectable } from 'tsyringe';
+import { Service } from '../meta/routing.meta';
 
-@injectable()
+@Service({ scope: 'global' })
 export class PrismaService extends PrismaClient {
   constructor() {
     super({
