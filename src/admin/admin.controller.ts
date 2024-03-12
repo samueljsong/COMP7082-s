@@ -1,10 +1,11 @@
 import { Get, Param, Patch } from 'routing-controllers';
 import { AdminService } from './admin.service';
 import { ServiceController } from '../meta/routing.meta';
+import { inject } from 'tsyringe';
 
 @ServiceController('/admin')
 export class AdminController {
-  constructor(private readonly admin: AdminService) {}
+  constructor(@inject(AdminService) private readonly admin: AdminService) {}
 
   @Get('/all')
   all() {

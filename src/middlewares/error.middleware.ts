@@ -3,7 +3,7 @@ import { HttpException } from '../utils/errors';
 import { BadRequestError, ExpressErrorMiddlewareInterface, HttpError, Middleware } from 'routing-controllers';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { ValidationError } from 'class-validator';
-import { Service } from 'typedi';
+import { Service } from '../meta/routing.meta';
 
 @Middleware({ type: 'after', priority: 1 })
 @Service()

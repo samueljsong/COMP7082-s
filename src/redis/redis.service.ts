@@ -1,10 +1,10 @@
 import { createClient } from 'redis';
-import { Service } from 'typedi';
 import { verify } from 'jsonwebtoken';
 import { config } from '../utils/config.service';
 import { UnauthorizedException } from '../utils/errors';
+import { Service } from '../meta/routing.meta';
 
-@Service()
+@Service({ scope: 'global' })
 export class RedisService {
   private readonly client: ReturnType<typeof createClient>;
 
