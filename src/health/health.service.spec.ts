@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { HealthService } from './health.service';
 import { beforeAll, describe, expect, it, test, vi } from 'vitest';
 

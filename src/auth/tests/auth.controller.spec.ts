@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import 'dotenv/config';
 
 import { vi, describe, test, it, expect, beforeEach } from 'vitest';
 import { AuthService } from '../auth.service';
