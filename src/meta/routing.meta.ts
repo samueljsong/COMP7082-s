@@ -1,9 +1,9 @@
 import { Controller } from 'routing-controllers';
-import { Service } from 'typedi';
+import { injectable } from 'tsyringe';
 
 export function ServiceController(...args: Parameters<typeof Controller>) {
   return (target: new (...args: any[]) => any) => {
-    Service()(target);
+    injectable()(target);
     Controller(...args)(target);
   };
 }
