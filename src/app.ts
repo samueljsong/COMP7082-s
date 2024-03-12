@@ -7,14 +7,29 @@ import cookieParser from 'cookie-parser';
 import { ErrorMiddleware } from './middlewares/error.middleware';
 import { UnknownRouteMiddleware } from './middlewares/unknown-route.middleware';
 import cors from 'cors';
-import { RoutingControllersOptions, useContainer, useExpressServer } from 'routing-controllers';
+import {
+  Action,
+  ClassConstructor,
+  IocAdapter,
+  RoutingControllersOptions,
+  useContainer,
+  useExpressServer,
+} from 'routing-controllers';
 import { Guard } from './middlewares/auth.middleware';
 import { rateLimit } from 'express-rate-limit';
 import { config } from './utils/config.service';
-import Container from 'typedi';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { DependencyContainer, container } from 'tsyringe';
 
-useContainer(Container);
+class TsyringeAdapter implements IocAdapter {
+  constructor(private readonly container: DependencyContainer) {}
+
+  get<T>(someClass: ClassConstructor<T>, _action?: Action | undefined): T {
+    return this.container.resolve(someClass);
+  }
+}
+
+useContainer(new TsyringeAdapter(container));
 
 export default class App {
   private _server: express.Express;
