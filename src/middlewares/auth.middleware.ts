@@ -1,25 +1,11 @@
 import { user, user_type } from '@prisma/client';
-import { NextFunction, Request, Response } from 'express';
-import { Action, ExpressMiddlewareInterface } from 'routing-controllers';
+import { Request } from 'express';
+import { Action } from 'routing-controllers';
 import { UnauthorizedException } from '../utils/errors';
 import { verify } from 'jsonwebtoken';
 import { RedisService } from '../redis/redis.service';
 import { config } from '../utils/config.service';
 import { container } from 'tsyringe';
-
-export class AuthGuard implements ExpressMiddlewareInterface {
-  use(req: Request, _res: Response, next: NextFunction) {
-    const token = extractToken(req);
-
-    try {
-      const user = verify(token, config.string('JWT_SECRET'));
-      req['user'] = user;
-      next();
-    } catch (err) {
-      next(new UnauthorizedException('Invalid token'));
-    }
-  }
-}
 
 export const Guard = async (action: Action, roles: string[]) => {
   const redis = container.resolve(RedisService);
