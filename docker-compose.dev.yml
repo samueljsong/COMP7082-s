@@ -1,3 +1,5 @@
+# For development in docker container
+
 version: '1'
 
 services:

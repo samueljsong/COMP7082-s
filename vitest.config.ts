@@ -3,7 +3,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   // file pattern to look for to run tests on
   test: {
-    include: ['src/**/*.spec.ts'],
+    include: ['src/**/*.spec.ts', '!src/tests/**/*.spec.ts'],
   },
   // shorten import paths
   resolve: {

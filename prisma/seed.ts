@@ -57,15 +57,16 @@ async function fakeReports() {
   // Create reports
   await prisma.report.createMany({
     data: [
-      { 
+      {
         title: 'Active Report 1',
-        description: 'Description of active report 1 Description of active report 1 Description of active report 1 Description of active report 1 Description of active report 1',
+        description:
+          'Description of active report 1 Description of active report 1 Description of active report 1 Description of active report 1 Description of active report 1',
         date_submitted: new Date('2024-03-04'),
         location_tag_id: 101,
         status_id: 1,
         user_id: 15,
       },
-      { 
+      {
         title: 'Active Report 2',
         description: 'Description of active report 2',
         date_submitted: new Date('2024-03-03'),
@@ -73,7 +74,7 @@ async function fakeReports() {
         status_id: 2,
         user_id: 15,
       },
-      { 
+      {
         title: 'Active Report 3',
         description: 'Description of active report 3',
         date_submitted: new Date('2024-03-04'),
@@ -81,7 +82,7 @@ async function fakeReports() {
         status_id: 3,
         user_id: 15,
       },
-      { 
+      {
         title: 'Active Report 4',
         description: 'Description of active report 4',
         date_submitted: new Date('2024-03-03'),
