@@ -1,4 +1,3 @@
-import { Service } from 'typedi';
 import { BadRequestException } from '../utils/errors';
 import { compareSync } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
@@ -6,12 +5,13 @@ import { user, user_type } from '@prisma/client';
 import { RedisService } from '../redis/redis.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { config } from '../utils/config.service';
+import { inject, injectable } from 'tsyringe';
 
-@Service()
+@injectable()
 export class AuthService {
   constructor(
-    private readonly prisma: PrismaService,
-    private readonly redis: RedisService,
+    @inject(PrismaService) private readonly prisma: PrismaService,
+    @inject(RedisService) private readonly redis: RedisService,
   ) {}
 
   public async login(email: string, password: string) {

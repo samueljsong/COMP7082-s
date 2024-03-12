@@ -3,9 +3,9 @@ import { NextFunction, Request, Response } from 'express';
 import { Action, ExpressMiddlewareInterface } from 'routing-controllers';
 import { UnauthorizedException } from '../utils/errors';
 import { verify } from 'jsonwebtoken';
-import Container from 'typedi';
 import { RedisService } from '../redis/redis.service';
 import { config } from '../utils/config.service';
+import { container } from 'tsyringe';
 
 export class AuthGuard implements ExpressMiddlewareInterface {
   use(req: Request, _res: Response, next: NextFunction) {
@@ -22,7 +22,7 @@ export class AuthGuard implements ExpressMiddlewareInterface {
 }
 
 export const Guard = async (action: Action, roles: string[]) => {
-  const redis = Container.get(RedisService);
+  const redis = container.resolve(RedisService);
 
   const request: Request = action.request;
   const token = extractToken(request);

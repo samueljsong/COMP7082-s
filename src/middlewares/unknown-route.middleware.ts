@@ -1,10 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { NotFoundException } from '../utils/errors';
 import { ExpressMiddlewareInterface, Middleware } from 'routing-controllers';
-import { Service } from 'typedi';
+import { injectable } from 'tsyringe';
 
+@injectable()
 @Middleware({ type: 'after', priority: 2 })
-@Service()
+// @Service()
 export class UnknownRouteMiddleware implements ExpressMiddlewareInterface {
   use(request: Request, response: Response, next: NextFunction) {
     if (response.headersSent) {

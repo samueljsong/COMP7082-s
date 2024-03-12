@@ -1,10 +1,10 @@
 import { createClient } from 'redis';
-import { Service } from 'typedi';
 import { verify } from 'jsonwebtoken';
 import { config } from '../utils/config.service';
 import { UnauthorizedException } from '../utils/errors';
+import { injectable } from 'tsyringe';
 
-@Service()
+@injectable()
 export class RedisService {
   private readonly client: ReturnType<typeof createClient>;
 

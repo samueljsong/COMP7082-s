@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { Service } from 'typedi';
+import { injectable } from 'tsyringe';
 
-@Service()
+@injectable()
 export class PrismaService extends PrismaClient {
   constructor() {
     super({
