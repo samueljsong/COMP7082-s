@@ -13,7 +13,7 @@
     "env:test": "./scripts/create-test-env.sh",
     "test": "vitest run --config vitest.config.ts",
     "test:int": "dotenv -e .env.test -- vitest run --config vitest.config.integration.ts",
-    "test:coverage": "vitest run --config vitest.config.coverage.ts",
+    "test:coverage": "dotenv -e .env.test vitest run --config vitest.config.coverage.ts",
     "test:e2e": "vitest run --config vitest.config.e2e.ts",
     "ui:test": "dotenv -e .env.test -- vitest --ui --config vitest.config.ui.ts",
     "build": "tsc",
