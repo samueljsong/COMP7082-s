@@ -1,7 +1,3 @@
-import 'reflect-metadata';
-import 'dotenv/config';
-
-import request from 'supertest';
 import App from '../src/app';
 import { AppController } from '../src/app/app.controller';
 import { HealthController } from '../src/health/health.controller';

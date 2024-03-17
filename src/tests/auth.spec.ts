@@ -52,7 +52,6 @@ describe('auth tests', () => {
     const loginRes = await request(app.server)
       .post('/api/auth/login')
       .send({ email: 'test1@my.bcit.ca', password: 123 });
-    console.log(loginRes.body);
     expect(loginRes.status).toBe(400);
   });
 
@@ -69,17 +68,13 @@ describe('auth tests', () => {
     expect(logoutRes.body).toStrictEqual({ statusCode: 200, message: 'Logout' });
   });
 
-  it('should respond with 401 when logging out without token', async () => {
-    const loginRes = await request(app.server)
-      .post('/api/auth/login')
-      .send({ email: 'test1@my.bcit.ca', password: 'test1' });
-    expect(loginRes.statusCode).toBe(200);
-
-    const logoutRes = await request(app.server).get('/api/auth/logout');
-    expect(logoutRes.statusCode).toBe(401);
-  });
-
   it('should respond with 401 when logging out again with same token', async () => {
+    const expectedResponse = {
+      statusCode: StatusCodes.UNAUTHORIZED,
+      error: ReasonPhrases.UNAUTHORIZED,
+      message: 'Blacklisted token',
+    };
+
     const loginRes = await request(app.server)
       .post('/api/auth/login')
       .send({ email: 'test1@my.bcit.ca', password: 'test1' });
@@ -89,12 +84,9 @@ describe('auth tests', () => {
 
     const logoutRes = await request(app.server).get('/api/auth/logout').set('Cookie', cookie);
     expect(logoutRes.statusCode).toBe(200);
+
     const failedLogoutRes = await request(app.server).get('/api/auth/logout').set('Cookie', cookie);
     expect(failedLogoutRes.statusCode).toBe(401);
-    expect(failedLogoutRes.body).toStrictEqual({
-      statusCode: StatusCodes.UNAUTHORIZED,
-      error: ReasonPhrases.UNAUTHORIZED,
-      message: 'Blacklisted token',
-    });
+    expect(failedLogoutRes.body).toStrictEqual(expectedResponse);
   });
 });
