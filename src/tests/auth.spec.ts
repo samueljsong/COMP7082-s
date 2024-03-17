@@ -91,6 +91,20 @@ describe('auth tests', () => {
       expect(meRes.status).toBe(200);
       expect(meRes.body).toStrictEqual({ statusCode: 200, message: 'User details', ...testOneUser });
     });
+
+    it('should respond with 400 if bad token provided', async () => {
+      const loginRes = await request(app.server)
+        .post('/api/auth/login')
+        .send({ email: 'test1@my.bcit.ca', password: 'test1' });
+      expect(loginRes.status).toBe(200);
+
+      const cookie = 'token=badtoken';
+
+      const meRes = await request(app.server).get('/api/auth/me').set('Cookie', cookie);
+      expect(meRes.status).toBe(401);
+      expect(meRes.body).toHaveProperty('message');
+      expect(meRes.body.message).toMatch(/invalid token/i);
+    });
   });
 
   describe('logout', () => {
@@ -140,5 +154,18 @@ describe('auth tests', () => {
       expect(logoutRes.body).toHaveProperty('message');
       expect(logoutRes.body.message).toMatch(/token not provided/i);
     });
+  });
+  it('should respond with 401 when getting all user info if not admin', async () => {
+    const loginRes = await request(app.server)
+      .post('/api/auth/login')
+      .send({ email: 'test1@my.bcit.ca', password: 'test1' });
+    expect(loginRes.statusCode).toBe(200);
+
+    const cookie = loginRes.get('Set-Cookie');
+
+    const allUserRes = await request(app.server).get('/api/user/all').set('Cookie', cookie);
+    expect(allUserRes.status).toBe(401);
+    expect(allUserRes.body).toHaveProperty('message');
+    expect(allUserRes.body.message).toMatch(/not authorized/i);
   });
 });

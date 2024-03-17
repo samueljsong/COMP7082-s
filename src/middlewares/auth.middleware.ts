@@ -35,7 +35,6 @@ export const Guard = async (action: Action, roles: string[]) => {
     throw new UnauthorizedException('Not authorized');
   }
 
-  console.log('guard done');
   return true;
 };
 

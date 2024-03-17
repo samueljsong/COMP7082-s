@@ -3,12 +3,13 @@ import { ServiceController } from '../meta/routing.meta';
 import { Get, Post, Param, Body, Req, Authorized } from 'routing-controllers';
 import { ReportDto } from './dtos/report.dto';
 import { inject } from 'tsyringe';
+import { Role } from '../auth/auth.metadata';
 
 @ServiceController('/user')
 export class UserController {
   constructor(@inject(UserService) private readonly user: UserService) {}
 
-  @Authorized()
+  @Authorized(Role.ADMIN)
   @Get('/all')
   all() {
     return this.user.allUsers();
