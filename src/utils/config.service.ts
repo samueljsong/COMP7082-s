@@ -12,6 +12,12 @@ export const config = {
   },
   int: (key: string) => {
     const value = config.string(key);
-    return parseInt(value);
+    const parsed = parseInt(value);
+
+    if (isNaN(parsed)) {
+      throw new InternalServerError(`value of key: ${key} cannot be parsed into an integer`);
+    }
+
+    return parsed;
   },
 };
