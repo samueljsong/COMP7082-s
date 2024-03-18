@@ -24,13 +24,14 @@ export class ErrorMiddleware implements ExpressErrorMiddlewareInterface {
     } else {
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send({ stausCode: StatusCodes.INTERNAL_SERVER_ERROR, error: 'Unknown error', message: 'Some error occured' });
+        .send({ statusCode: StatusCodes.INTERNAL_SERVER_ERROR, error: 'Unknown error', message: 'Some error occured' });
     }
   }
 }
 
 const handleValidationErrors = (error: BadRequestError) => {
   const errors: ValidationError[] = (error as BadRequestError & { errors: ValidationError[] }).errors;
+  console.log(errors);
 
   if (!errors) {
     return error.message;
