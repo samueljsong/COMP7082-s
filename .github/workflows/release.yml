@@ -59,8 +59,11 @@ jobs:
       - name: Spin up test environment
         run: npm run env:test
 
-      - name: Test (Unit + Integration)
+      - name: Test (Unit)
         run: npm run test
+
+      - name: Test (Integration)
+        run: npm run test:int
 
       - name: Test (E2E)
         run: npm run test:e2e
