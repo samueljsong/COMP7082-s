@@ -31,7 +31,6 @@ export class ErrorMiddleware implements ExpressErrorMiddlewareInterface {
 
 const handleValidationErrors = (error: BadRequestError) => {
   const errors: ValidationError[] = (error as BadRequestError & { errors: ValidationError[] }).errors;
-  console.log(errors);
 
   if (!errors) {
     return error.message;
