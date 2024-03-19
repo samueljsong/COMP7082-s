@@ -1,10 +1,11 @@
-import { Service } from 'typedi';
+import { inject } from 'tsyringe';
+import { Service } from '../meta/routing.meta';
 import { PrismaService } from '../prisma/prisma.service';
 
 // WHERE TO WRITE THE QUERIES
 @Service()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(@inject(PrismaService) private readonly prisma: PrismaService) {}
 
   public allUsers() {
     return this.prisma.user.findMany();

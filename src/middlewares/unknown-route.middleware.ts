@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { NotFoundException } from '../utils/errors';
 import { ExpressMiddlewareInterface, Middleware } from 'routing-controllers';
-import { Service } from 'typedi';
+import { Service } from '../meta/routing.meta';
 
-@Middleware({ type: 'after', priority: 2 })
 @Service()
+@Middleware({ type: 'after', priority: 2 })
 export class UnknownRouteMiddleware implements ExpressMiddlewareInterface {
   use(request: Request, response: Response, next: NextFunction) {
     if (response.headersSent) {

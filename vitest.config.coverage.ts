@@ -1,17 +1,19 @@
-import { defineConfig } from 'vitest/config';
+import { mergeConfig } from 'vitest/config';
+import vitestConfig from './vitest.config';
 
-export default defineConfig({
+export default mergeConfig(vitestConfig, {
   test: {
-    include: ['src/**/*.spec.ts', 'test/**/*.e2e-{test,spec}.{ts,js}'],
+    include: ['src/**/*.spec.ts'],
+    setupFiles: ['src/tests/helpers/setup.ts'],
     coverage: {
       include: ['src/**/*.{controller,service,middleware}.ts'],
       exclude: ['src/**/__mocks__'],
       enabled: true,
       thresholds: {
-        lines: 30,
-        branches: 30,
-        statements: 30,
-        functions: 30,
+        lines: 80,
+        branches: 80,
+        statements: 80,
+        functions: 80,
       },
     },
   },

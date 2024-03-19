@@ -1,3 +1,4 @@
+import 'reflect-metadata'; // have to add this to the top of every test file
 import { describe, expect, beforeAll, it, vi, test } from 'vitest';
 import { AppService } from './app.service';
 

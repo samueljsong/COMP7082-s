@@ -6,5 +6,5 @@ import { AdminController } from './admin/admin.controller';
 import { UserController } from './user/user.controller';
 
 const app = new App([AppController, HealthController, AuthController, AdminController, UserController]);
-console.log("SMALL")
+console.log('SMALL');
 app.listen();

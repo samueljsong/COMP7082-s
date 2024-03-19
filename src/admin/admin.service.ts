@@ -1,10 +1,11 @@
-import { Service } from 'typedi';
+import { Service } from '../meta/routing.meta';
 import { PrismaService } from '../prisma/prisma.service';
+import { inject } from 'tsyringe';
 
 // WHERE TO WRITE THE QUERIES
 @Service()
 export class AdminService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(@inject(PrismaService) private readonly prisma: PrismaService) {}
 
   public allUsers() {
     return this.prisma.user.findMany();
@@ -27,9 +28,9 @@ export class AdminService {
         report_image: {
           include: {
             image: true,
-          }
-        }
-      }
+          },
+        },
+      },
     });
   }
 
@@ -47,8 +48,8 @@ export class AdminService {
         report_id: reportId,
       },
       data: {
-        status_id: state
-      }
+        status_id: state,
+      },
     });
   }
 }

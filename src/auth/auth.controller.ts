@@ -4,11 +4,12 @@ import { LoginDto } from './dtos/login.dto';
 import { AuthService } from './auth.service';
 import { Request, Response } from 'express';
 import { config } from '../utils/config.service';
+import { inject } from 'tsyringe';
 import { ServiceController } from '../meta/routing.meta';
 
 @ServiceController('/auth')
 export class AuthController {
-  constructor(private readonly auth: AuthService) {}
+  constructor(@inject(AuthService) private readonly auth: AuthService) {}
 
   @HttpCode(StatusCodes.OK)
   @Post('/login')

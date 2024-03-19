@@ -3,7 +3,7 @@ import { HttpException } from '../utils/errors';
 import { BadRequestError, ExpressErrorMiddlewareInterface, HttpError, Middleware } from 'routing-controllers';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { ValidationError } from 'class-validator';
-import { Service } from 'typedi';
+import { Service } from '../meta/routing.meta';
 
 @Middleware({ type: 'after', priority: 1 })
 @Service()
@@ -24,7 +24,7 @@ export class ErrorMiddleware implements ExpressErrorMiddlewareInterface {
     } else {
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send({ stausCode: StatusCodes.INTERNAL_SERVER_ERROR, error: 'Unknown error', message: 'Some error occured' });
+        .send({ statusCode: StatusCodes.INTERNAL_SERVER_ERROR, error: 'Unknown error', message: 'Some error occured' });
     }
   }
 }

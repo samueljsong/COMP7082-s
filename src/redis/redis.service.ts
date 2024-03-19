@@ -1,21 +1,27 @@
 import { createClient } from 'redis';
-import { Service } from 'typedi';
 import { verify } from 'jsonwebtoken';
 import { config } from '../utils/config.service';
 import { UnauthorizedException } from '../utils/errors';
+import { Service } from '../meta/routing.meta';
 
-@Service()
+@Service({ scope: 'global' })
 export class RedisService {
   private readonly client: ReturnType<typeof createClient>;
 
   constructor() {
-    const redisClient = createClient({
-      password: config.string('REDIS_PASSWORD'),
+    const options: Parameters<typeof createClient>[0] = {
       socket: {
         host: config.string('REDIS_HOST'),
         port: config.int('REDIS_PORT'),
       },
-    });
+    };
+
+    /* v8 ignore next 3 */
+    if (config.string('NODE_ENV') === 'prod') {
+      options.password = config.string('REDIS_PASSWORD');
+    }
+
+    const redisClient = createClient(options);
     this.client = redisClient;
     this.client
       .connect()

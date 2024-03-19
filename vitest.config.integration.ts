@@ -1,8 +1,10 @@
 import { defineConfig } from 'vitest/config';
 import swc from 'unplugin-swc';
 
-// swc plugin needed to solve input validation (default esbuild does not support TS decorators)
-
 export default defineConfig({
   plugins: [swc.vite()],
+  test: {
+    include: ['src/tests/**/*.{spec,test}.ts'],
+    setupFiles: ['src/tests/helpers/setup.ts'],
+  },
 });

@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { Service } from 'typedi';
+import { Service } from '../meta/routing.meta';
 
-@Service()
+@Service({ scope: 'global' })
 export class PrismaService extends PrismaClient {
   constructor() {
     super({
