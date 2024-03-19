@@ -25,11 +25,9 @@ jobs:
       - name: Lint Source Files
         run: npm run lint
 
-  test:
+  tests:
     needs: lint
     runs-on: ubuntu-latest
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -45,6 +43,22 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Make .env.test
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          envkey_JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          envkey_TOKEN: ${{ secrets.TOKEN }}
+          envkey_REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          envkey_REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+          envkey_REDIS_PORT: ${{ secrets.REDIS_PORT }}
+          envkey_RATE_LIMIT_WINDOW: ${{ secrets.RATE_LIMIT_WINDOW }}
+          envkey_RATE_LIMIT_USER_LIMIT: ${{ secrets.RATE_LIMIT_USER_LIMIT }}
+          file_name: .env.test
+
+      - name: Spin up test environment
+        run: npm run env:test
+
       - name: Test (Unit + Integration)
         run: npm run test
 
@@ -54,12 +68,15 @@ jobs:
       - name: Test (Coverage)
         run: npm run test:coverage
 
+      - name: Tear down test environment
+        run: npm run clean:test
+
   deploy:
-    needs: test
+    needs: tests
     runs-on: ubuntu-latest
     steps:
       - name: To Render
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         env:
           deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: curl "$deploy_url"
