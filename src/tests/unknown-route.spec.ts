@@ -18,7 +18,6 @@ describe('making requests', () => {
 
     expect(res.status).toBe(404);
     expect(res.body).toHaveProperty('message');
-    console.log(res.body);
     expect(res.body.message).toMatch(/cannot get \/hello/i);
   });
 });
