@@ -29,7 +29,7 @@
     "start:prod": "npm run build:prod && node dist/index.cjs",
     "dev": "npm-run-all -p build:dev watch:dist",
     "docker:dev": "docker compose -f docker-compose.dev.yml up -d && docker logs -f server",
-    "start:dev": "dotenv -e .env -- npm run dev",
+    "start:dev": "dotenv -e .env.dev -- npm run dev",
     "start:test": "dotenv -e .env.test -- npm run dev",
 
     "studio:dev": "dotenv -e .env -- prisma studio",

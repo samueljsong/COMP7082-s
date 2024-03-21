@@ -17,7 +17,7 @@ export class RedisService {
     };
 
     /* v8 ignore next 3 */
-    if (config.string('NODE_ENV') === 'prod') {
+    if (config.string('NODE_ENV') !== 'test') {
       options.password = config.string('REDIS_PASSWORD');
     }
 

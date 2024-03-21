@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { ErrorMiddleware } from './middlewares/error.middleware';
 import { UnknownRouteMiddleware } from './middlewares/unknown-route.middleware';
-import cors from 'cors';
+// import cors from 'cors';
 import {
   Action,
   ClassConstructor,
@@ -51,7 +51,7 @@ export default class App {
   }
 
   private initializeMiddlewares() {
-    this._server.use(cors({ origin: true, credentials: true }));
+    // this._server.use(cors({ origin: true, credentials: true }));
     this._server.use(helmet());
     this._server.use(cookieParser());
     this._server.use(express.json());
@@ -61,6 +61,7 @@ export default class App {
 
   private initializeRouting(controllers: RoutingControllersOptions['controllers']) {
     useExpressServer(this._server, {
+      cors: { origin: true, credentials: true },
       routePrefix: '/api',
       controllers,
       middlewares: [UnknownRouteMiddleware, ErrorMiddleware],

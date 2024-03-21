@@ -9,6 +9,7 @@ import { Service } from '../meta/routing.meta';
 @Service()
 export class ErrorMiddleware implements ExpressErrorMiddlewareInterface {
   error(error: Error, _req: Request, res: Response, _next: NextFunction): void {
+    console.log(error);
     if (error instanceof HttpError && error instanceof BadRequestError) {
       res.status(StatusCodes.BAD_REQUEST).send({
         statusCode: StatusCodes.BAD_REQUEST,
