@@ -15,7 +15,12 @@ export class AuthController {
   @Post('/login')
   public async login(@Body() dto: LoginDto, @Res() res: Response) {
     const token = await this.auth.login(dto.email, dto.password);
-    res.cookie(config.string('TOKEN'), token, { path: '/api', maxAge: 60 * 60 * 1000, httpOnly: true });
+    res.cookie(config.string('TOKEN'), token, {
+      path: '/api',
+      maxAge: 60 * 60 * 1000,
+      httpOnly: true,
+      sameSite: 'none',
+    });
     return { statusCode: StatusCodes.OK, message: 'Successful Login' };
   }
 
