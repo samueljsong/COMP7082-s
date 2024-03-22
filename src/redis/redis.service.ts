@@ -1,7 +1,7 @@
 import { createClient } from 'redis';
-import { verify } from 'jsonwebtoken';
+import { JwtPayload, verify } from 'jsonwebtoken';
 import { config } from '../utils/config.service';
-import { UnauthorizedException } from '../utils/errors';
+import { BadRequestException, UnauthorizedException } from '../utils/errors';
 import { Service } from '../meta/routing.meta';
 
 @Service({ scope: 'global' })
@@ -35,14 +35,19 @@ export class RedisService {
   }
 
   public async blacklistToken(token: string) {
-    let payload: any;
+    let payload: JwtPayload;
+
     try {
-      payload = verify(token, config.string('JWT_SECRET'));
+      payload = verify(token, config.string('JWT_SECRET')) as JwtPayload;
     } catch (error) {
       throw new UnauthorizedException('Invalid token');
     }
 
     const exp = payload.exp;
+
+    if (!exp) {
+      throw new BadRequestException('Token missing exp property');
+    }
 
     const expiration = exp - Math.ceil(Date.now() / 1000);
 

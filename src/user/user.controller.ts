@@ -4,6 +4,7 @@ import { Get, Post, Param, Body, Req, Authorized } from 'routing-controllers';
 import { ReportDto } from './dtos/report.dto';
 import { inject } from 'tsyringe';
 import { Role } from '../auth/auth.metadata';
+import { user, user_type } from '@prisma/client';
 
 @ServiceController('/user')
 export class UserController {
@@ -35,7 +36,10 @@ export class UserController {
 
   @Authorized()
   @Post('/createReport')
-  async createUserReport(@Body() dto: ReportDto, @Req() req: Request) {
+  async createUserReport(
+    @Body() dto: ReportDto,
+    @Req() req: Request & { user: user & { user_type: user_type; first_name: string; last_name: string } },
+  ) {
     const userId = req['user'].user_id;
     const success = await this.user.createUserReport(
       userId,

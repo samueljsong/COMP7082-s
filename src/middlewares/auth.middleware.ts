@@ -10,7 +10,7 @@ import { container } from 'tsyringe';
 export const Guard = async (action: Action, roles: string[]) => {
   const redis = container.resolve(RedisService);
 
-  const request: Request = action.request;
+  const request: Request = action.request as Request;
   const token = extractToken(request);
 
   const inside = await redis.getValue(token);

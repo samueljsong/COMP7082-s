@@ -1,6 +1,6 @@
 /* eslint-env node */
 module.exports = {
-  extends: ['plugin:@typescript-eslint/recommended', 'prettier'],
+  extends: ['plugin:@typescript-eslint/recommended-type-checked', 'prettier'],
   plugins: ['@typescript-eslint/eslint-plugin'],
   parser: '@typescript-eslint/parser',
   rules: {
