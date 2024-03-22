@@ -3,7 +3,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { UserController } from '../user.controller';
 import { UserService } from '../user.service';
 import prisma from '../../prisma/__mocks__/prisma.service';
-import { user } from '@prisma/client';
+import { user, user_type } from '@prisma/client';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -81,14 +81,12 @@ describe('UserController', () => {
     };
 
     const request = {
-      user: {
-        user_id: adminUser.user_id,
-        email: adminUser.email,
-        first_name: adminUser.first_name,
-        last_name: adminUser.last_name,
-        user_type: 'admin',
-      },
-    } as unknown as Request;
+      user_id: adminUser.user_id,
+      email: adminUser.email,
+      first_name: adminUser.first_name,
+      last_name: adminUser.last_name,
+      user_type: 'admin',
+    } as unknown as user & { user_type: user_type };
     prisma.report.create.mockResolvedValueOnce({
       report_id: 14,
       title: fakeReport.title,
@@ -128,7 +126,7 @@ describe('UserController', () => {
         last_name: adminUser.last_name,
         user_type: 'admin',
       },
-    } as unknown as Request;
+    } as unknown as user & { user_type: user_type };
     prisma.report.create.mockRejectedValueOnce(new Error('Failed to create report'));
 
     const result = await controller.createUserReport(fakeReport, request);

@@ -1,12 +1,13 @@
 import { StatusCodes } from 'http-status-codes';
-import { Authorized, Body, CookieParam, Get, HttpCode, Post, Req, Res } from 'routing-controllers';
+import { Authorized, Body, CookieParam, Get, HttpCode, Post, Res } from 'routing-controllers';
 import { LoginDto } from './dtos/login.dto';
 import { AuthService } from './auth.service';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { config } from '../utils/config.service';
 import { inject } from 'tsyringe';
 import { ServiceController } from '../meta/routing.meta';
 import { user, user_type } from '@prisma/client';
+import { User } from '../meta/user.meta';
 
 @ServiceController('/auth')
 export class AuthController {
@@ -36,8 +37,8 @@ export class AuthController {
 
   @Authorized()
   @Get('/me')
-  public me(@Req() req: Request & { user: user & { user_type: user_type; first_name: string; last_name: string } }) {
-    const user = this.auth.me(req['user']);
+  public me(@User() me: user & { user_type: user_type }) {
+    const user = this.auth.me(me);
     return { statusCode: StatusCodes.OK, message: 'User details', ...user };
   }
 }

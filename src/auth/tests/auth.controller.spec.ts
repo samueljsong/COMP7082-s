@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { vi, describe, test, it, expect, beforeEach } from 'vitest';
 import { AuthService } from '../auth.service';
 import prisma from '../../prisma/__mocks__/prisma.service';
-import { user } from '@prisma/client';
+import { user, user_type } from '@prisma/client';
 import { AuthController } from '../auth.controller';
 import { Request, Response } from 'express';
 import { BadRequestException } from '../../utils/errors';
@@ -121,14 +121,12 @@ describe('AuthController', () => {
 
   describe('me', () => {
     const request = {
-      user: {
-        user_id: testUser.user_id,
-        email: testUser.email,
-        first_name: testUser.first_name,
-        last_name: testUser.last_name,
-        user_type: 'admin',
-      },
-    } as unknown as Request;
+      user_id: testUser.user_id,
+      email: testUser.email,
+      first_name: testUser.first_name,
+      last_name: testUser.last_name,
+      user_type: 'admin',
+    } as unknown as user & { user_type: user_type };
     it('should have statusCode and message in response', async () => {
       const data = await authController.me(request);
       expect(data).toHaveProperty('statusCode');
@@ -145,7 +143,7 @@ describe('AuthController', () => {
     });
 
     it('should response with bad request when no user', () => {
-      const request = {} as unknown as Request;
+      const request = undefined as unknown as user & { user_type: user_type };
 
       expect(() => authController.me(request)).toThrowError(BadRequestException);
     });

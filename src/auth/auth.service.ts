@@ -36,7 +36,7 @@ export class AuthService {
     return await this.redis.blacklistToken(token);
   }
 
-  public me(user: user & { user_type: user_type; first_name: string; last_name: string }) {
+  public me(user: user & { user_type: user_type }) {
     if (!user) {
       throw new BadRequestException('No user in request');
     }
