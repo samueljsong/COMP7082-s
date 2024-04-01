@@ -62,6 +62,7 @@ model user {
   last_name       String    @default("") @db.VarChar(100)
   hashed_password String    @db.VarChar(100)
   user_type_id    Int       @default(1)
+  new_user        Boolean   @default(true)
   report          report[]
   user_type       user_type @relation(fields: [user_type_id], references: [user_type_id], onDelete: NoAction, onUpdate: NoAction, map: "user_user_type")
 

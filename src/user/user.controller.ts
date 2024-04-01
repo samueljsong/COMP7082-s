@@ -1,6 +1,6 @@
 import { UserService } from './user.service';
 import { ServiceController } from '../meta/routing.meta';
-import { Get, Post, Param, Body, Authorized } from 'routing-controllers';
+import { Get, Post, Param, Body, Req, Authorized, Patch } from 'routing-controllers';
 import { ReportDto } from './dtos/report.dto';
 import { inject } from 'tsyringe';
 import { Role } from '../auth/auth.metadata';
@@ -51,5 +51,18 @@ export class UserController {
       return { statusCode: 200, message: 'Successfully created report' };
     }
     return { statusCode: 500, message: 'Failed to create report' };
+  }
+
+  @Authorized()
+  @Patch('/updateNewUser')
+  async updateNewUser(@Req() req: Request) {
+    await this.user.updateNewUser(req['user'].email);
+    return { status: 200, message: 'Successfully updated new_user' };
+  }
+
+  @Authorized()
+  @Get('/isNewUser')
+  async isNewUser(@Req() req: Request) {
+    return await this.user.isNewUser(req['user'].email);
   }
 }
