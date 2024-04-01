@@ -14,6 +14,7 @@ const testUser: user = {
   user_type_id: 2,
   email: 'test@my.bcit.ca',
   hashed_password: '$2a$12$mYKlYQwyz4rA7ojMiqSCseTXbZ3YQ6j4y/wpfsxtYto109Tijt2nq',
+  new_user: false,
   first_name: 'test',
   last_name: 'test',
 };
@@ -23,6 +24,7 @@ const regularUser: user = {
   user_type_id: 1,
   email: 'test@my.bcit.ca',
   hashed_password: '$2a$12$mYKlYQwyz4rA7ojMiqSCseTXbZ3YQ6j4y/wpfsxtYto109Tijt2nq',
+  new_user: false,
   first_name: 'test',
   last_name: 'test',
 };
@@ -32,6 +34,7 @@ const adminUser: user = {
   user_type_id: 2,
   email: 'jasonlui40@my.bcit.ca',
   hashed_password: '$2a$10$aP7vsjweB9VHe/a8338.hupLw9k/IC76WX9wAzdnXbFcMiR9hUTw2',
+  new_user: false,
   first_name: 'Jason',
   last_name: 'Lui',
 };
@@ -126,17 +129,18 @@ describe('AuthController', () => {
         email: testUser.email,
         first_name: testUser.first_name,
         last_name: testUser.last_name,
+        new_user: false,
         user_type: 'admin',
       },
     } as unknown as Request;
     it('should have statusCode and message in response', async () => {
-      const data = await authController.me(request);
+      const data = authController.me(request);
       expect(data).toHaveProperty('statusCode');
       expect(data).toHaveProperty('message');
     });
 
     it('should return user data if ok', async () => {
-      const data = await authController.me(request);
+      const data = authController.me(request);
       expect(data).toHaveProperty('user_id');
       expect(data).toHaveProperty('email');
       expect(data).toHaveProperty('first_name');

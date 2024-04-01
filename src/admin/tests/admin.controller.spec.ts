@@ -21,6 +21,7 @@ describe('AdminController', () => {
         first_name: 'Alexander',
         last_name: 'Liu',
         hashed_password: '$2a$10$T5vbxdlbF9HSZoiZXF2dRO5jSkwwYFk5a231RreP1xpNCcu.Y8FXC',
+        new_user: false,
         user_type_id: 2,
       },
       {
@@ -29,6 +30,7 @@ describe('AdminController', () => {
         first_name: 'Jason',
         last_name: 'Lui',
         hashed_password: '$2a$10$aP7vsjweB9VHe/a8338.hupLw9k/IC76WX9wAzdnXbFcMiR9hUTw2',
+        new_user: false,
         user_type_id: 2,
       },
       {
@@ -37,6 +39,7 @@ describe('AdminController', () => {
         first_name: 'Ian',
         last_name: 'Guani',
         hashed_password: '$2a$10$Rb7kq/IZ1UMsmlCe1SMjB.fAMMMGKboQzc.XSqXP1hI4WdV9ffx/6',
+        new_user: false,
         user_type_id: 2,
       },
       {
@@ -45,6 +48,7 @@ describe('AdminController', () => {
         first_name: 'Samuel',
         last_name: 'Song',
         hashed_password: '$2a$10$ccFEcgJnGX6E3RNGw99BkeYZDiB4UVEa8IgFQAAFpYfHXY1/XKg5i',
+        new_user: false,
         user_type_id: 2,
       },
       {
@@ -53,6 +57,7 @@ describe('AdminController', () => {
         first_name: 'Winston',
         last_name: 'Nguyen',
         hashed_password: '$2a$10$Wl.HB0pVu3K.ZNaX4Xhh9OHn6ajgs6B/V0lYeb5VoZbBrr1UkbGAi',
+        new_user: false,
         user_type_id: 2,
       },
       {
@@ -61,6 +66,7 @@ describe('AdminController', () => {
         first_name: 'UserFirstname',
         last_name: 'UserLastName',
         hashed_password: '$2a$12$aAiTZ9ZZfqKtc8NmUq2erO9M5kS/zk6Zws2mnoRDUDj.mNJZanEaq',
+        new_user: false,
         user_type_id: 1,
       },
     ];

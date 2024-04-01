@@ -12,6 +12,7 @@ const testUser: user = {
   user_type_id: 2,
   email: 'test@my.bcit.ca',
   hashed_password: '$2a$12$mYKlYQwyz4rA7ojMiqSCseTXbZ3YQ6j4y/wpfsxtYto109Tijt2nq',
+  new_user: false,
   first_name: 'test',
   last_name: 'test',
 };
