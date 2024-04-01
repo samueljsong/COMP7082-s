@@ -56,13 +56,15 @@ export class UserController {
   @Authorized()
   @Patch('/updateNewUser')
   async updateNewUser(@Req() req: Request) {
-    await this.user.updateNewUser(req['user'].email);
+    const current_user = req['user'] as user;
+    await this.user.updateNewUser(current_user.email);
     return { status: 200, message: 'Successfully updated new_user' };
   }
 
   @Authorized()
   @Get('/isNewUser')
   async isNewUser(@Req() req: Request) {
-    return await this.user.isNewUser(req['user'].email);
+    const current_user = req['user'] as user;
+    return await this.user.isNewUser(current_user.email);
   }
 }

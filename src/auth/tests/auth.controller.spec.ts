@@ -123,24 +123,27 @@ describe('AuthController', () => {
   });
 
   describe('me', () => {
-    const request = {
-      user: {
-        user_id: testUser.user_id,
-        email: testUser.email,
-        first_name: testUser.first_name,
-        last_name: testUser.last_name,
-        new_user: false,
-        user_type: 'admin',
+    const user = {
+      user_id: testUser.user_id,
+      email: testUser.email,
+      first_name: testUser.first_name,
+      last_name: testUser.last_name,
+      hashed_password: testUser.hashed_password,
+      user_type_id: 2,
+      new_user: false,
+      user_type: {
+        user_type_id: 2,
+        type: 'admin',
       },
-    } as unknown as Request;
+    };
     it('should have statusCode and message in response', async () => {
-      const data = authController.me(request);
+      const data = authController.me(user);
       expect(data).toHaveProperty('statusCode');
       expect(data).toHaveProperty('message');
     });
 
     it('should return user data if ok', async () => {
-      const data = authController.me(request);
+      const data = authController.me(user);
       expect(data).toHaveProperty('user_id');
       expect(data).toHaveProperty('email');
       expect(data).toHaveProperty('first_name');
