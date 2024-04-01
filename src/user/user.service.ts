@@ -1,6 +1,7 @@
 import { inject } from 'tsyringe';
 import { Service } from '../meta/routing.meta';
 import { PrismaService } from '../prisma/prisma.service';
+import { BadRequestException } from '../utils/errors';
 
 // WHERE TO WRITE THE QUERIES
 @Service()
@@ -81,5 +82,22 @@ export class UserService {
       console.log(error);
       return false;
     }
+  }
+
+  public async updateNewUser(email: string) {
+    await this.prisma.user.update({
+      where: { email },
+      data: {
+        new_user: false,
+      },
+    });
+  }
+
+  public async isNewUser(email: string) {
+    const result = await this.prisma.user.findUnique({ where: { email } });
+    if (!result) {
+      throw new BadRequestException('User does not exist');
+    }
+    return result.new_user;
   }
 }
