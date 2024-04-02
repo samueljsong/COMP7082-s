@@ -17,13 +17,13 @@ export class AuthController {
   @Post('/login')
   public async login(@Body() dto: LoginDto, @Res() res: Response) {
     const token = await this.auth.login(dto.email, dto.password);
-    const secure = config.string('NODE_ENV') !== 'prod' ? false : true;
+    const secure = config.string('NODE_ENV') === 'prod' ? true : false;
     res.cookie(config.string('TOKEN'), token, {
       path: '/api',
       maxAge: 60 * 60 * 1000,
+      secure,
       httpOnly: true,
       sameSite: 'none',
-      secure,
     });
     return { statusCode: StatusCodes.OK, message: 'Successful Login' };
   }

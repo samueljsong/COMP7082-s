@@ -7,5 +7,11 @@
 .vscode
 
 # Docker
-Dockerfile
-docker-compose.yml
+Dockerfile.dev
+docker-compose.dev.yml
+docker-compose.testing.yml
+
+# Configuration
+nodemon.json
+vitest.config*
+.prettier*
