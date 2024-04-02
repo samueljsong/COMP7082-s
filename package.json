@@ -12,7 +12,7 @@
     "format": "prettier \"{src,test}/**/*.ts\" --write",
 
     "env:test": "./scripts/create-test-env.sh",
-    
+
     "test": "vitest run --config vitest.config.unit.ts",
     "test:int": "dotenv -e .env.test -- vitest run --config vitest.config.integration.ts",
     "test:coverage": "dotenv -e .env.test -- vitest run --config vitest.config.coverage.ts",
@@ -106,5 +106,8 @@
     "webpack-dev-server": "^4.15.1",
     "webpack-merge": "^5.10.0",
     "webpack-node-externals": "^3.0.0"
+  },
+  "resolutions": {
+    "cookie": "0.6.0"
   }
 }
