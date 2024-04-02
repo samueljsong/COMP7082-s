@@ -24,6 +24,7 @@ export class AuthController {
       secure,
       httpOnly: true,
       sameSite: 'none',
+      partitioned: true,
     });
     return { statusCode: StatusCodes.OK, message: 'Successful Login' };
   }
