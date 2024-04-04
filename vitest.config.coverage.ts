@@ -4,6 +4,7 @@ import vitestConfig from './vitest.config';
 export default mergeConfig(vitestConfig, {
   test: {
     include: ['src/**/*.spec.ts'],
+    reporters: ['verbose'],
     setupFiles: ['src/tests/helpers/setup.ts'],
     coverage: {
       include: ['src/**/*.{controller,service,middleware}.ts'],
