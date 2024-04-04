@@ -106,12 +106,80 @@ function createUsers() {
   });
 }
 
+async function createImages() {
+  await prisma.image.createMany({
+    data: [
+      {
+        image_id: 1,
+        cloudinary_id: 'https://res.cloudinary.com/dxp9ftmcw/image/upload/v1710213592/dhkqyxdwg3kuegdgvakb.jpg',
+      },
+    ],
+  });
+
+  return prisma.report_image.createMany({
+    data: [
+      {
+        report_image_id: 1,
+        report_id: 1,
+        image_id: 1,
+      },
+
+      {
+        report_image_id: 2,
+        report_id: 2,
+        image_id: 1,
+      },
+      {
+        report_image_id: 3,
+        report_id: 3,
+        image_id: 1,
+      },
+    ],
+  });
+}
+
+async function createReports() {
+  return prisma.report.createMany({
+    data: [
+      {
+        report_id: 1,
+        title: 'Chair broken',
+        description: 'Chair is broken',
+        date_submitted: new Date(),
+        location_tag_id: 101,
+        user_id: 1,
+        status_id: 1,
+      },
+      {
+        report_id: 2,
+        title: 'Table broken',
+        description: 'Table is broken',
+        date_submitted: new Date(),
+        location_tag_id: 103,
+        user_id: 1,
+        status_id: 1,
+      },
+      {
+        report_id: 3,
+        title: 'TV broken',
+        description: 'TV Broken',
+        date_submitted: new Date(),
+        location_tag_id: 102,
+        user_id: 3,
+        status_id: 2,
+      },
+    ],
+  });
+}
+
 async function init() {
   console.log('🌱 Seeding Database...');
   await createUserTypes();
   await createStatuses();
   await createLocationTags();
   await createUsers();
+  await createReports();
+  await createImages();
   console.log('🌳 Seeding Finished!');
 }
 
