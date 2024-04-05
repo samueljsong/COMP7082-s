@@ -8,4 +8,4 @@ RUN npm install && npm run build:prod
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "ls -l && node dist/index.cjs"]
+CMD ["node" , "dist/index.cjs"]
