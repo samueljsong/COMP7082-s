@@ -42,13 +42,12 @@
 - [🧪 Testing](#-testing)
   - [Test Environment](#test-environment)
   - [Running Tests](#running-tests)
-  - [Writing Tests](#writing-tests)
 
 ## 🛠️ Setup
 ### ⬇️ Installation
 
 #### 🐳 Docker
-Install [Docker](https://docs.docker.com/desktop/install/linux-install/) (optional)
+Install [Docker](https://docs.docker.com/desktop/install/linux-install/)
 
 #### 📦 Project Setup
 Install Dependencies
@@ -56,8 +55,9 @@ Install Dependencies
 npm install
 ```
 #### 🔒 Env
-Create a 
+Create
 - `.env` 
+- `.env.dev`
 - `.env.test`
 
 file in project root. Follow the `.env.example` file to make sure you include all the environment variables
@@ -68,7 +68,7 @@ file in project root. Follow the `.env.example` file to make sure you include al
 The backend server can be run either locally on your machine or through a Docker container.
 
 #### 💻 On Machine
-Start server in development mode (Will reload and compile when file changes)
+Start server in development mode (Will reload and compile when files change)
 ```javascript
 npm run start:dev
 ```
@@ -98,7 +98,7 @@ Opening Prisma Studio to view data in database
 ```typescript
 npm run studio:dev // Access the real data
 
-npm run studio:test // Access the test data
+npm run studio:test // Access the test data, need to run npm run env:test
 ```
 
 ### Writing Code
@@ -130,7 +130,7 @@ Http Errors in `src/utils/errors.ts` can be thrown. These will be caught by the 
 }
 ```
 
-Additional Http Errors can be added by creating a new one following the structure of the example below.
+Additional Http Errors can be added by creating a new one following the structure of the example below in the *src/util/errors.ts* file
 
 Error Example
 ```typescript
@@ -148,7 +148,7 @@ class BadRequestException extends HttpException {
 │  └── login.dto.ts      
 │  
 ├──📂 tests             // Tests for controllers and services
-│  └── auth.controller.spec.ts     
+│  └── auth.controller.spec.ts
 │  
 ├── auth.controller.ts  // Mapping routes
 ├── auth.service.ts     // For the logic
@@ -213,11 +213,11 @@ npm run start:prod
 ### Test Environment
 Since integration and end-to-end tests are run against a real database, a test database for mysql and redis are required.
 
-Make sure Docker is installed first
+Make sure [Docker](#🐳-docker) is installed first
 
 `npm run env:test` to spin up the test environment
 - This will create a local mysql and redis to test against
-- The database will be preloaded with sample data
+- The database will be seeded with sample data using the *prisma/init.ts* file
 
 `npm run start:test` to run the server with test configuration (will load the environment variables from `.env.test`)
 
@@ -231,6 +231,3 @@ npm run test:e2e        // End to End Tests
 npm run test:coverage   // Coverage
 npm run ui:test         // View and run tests in browser
 ```
-
-### Writing Tests
-🚧 In progress 🚧
