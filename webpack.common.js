@@ -25,7 +25,6 @@ export default {
   },
   output: {
     filename: 'index.cjs',
-    path: outputPath,
     clean: true,
   },
 };
