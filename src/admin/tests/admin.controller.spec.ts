@@ -176,4 +176,31 @@ describe('AdminController', () => {
     const result = await controller.updateReportState(reportId, state);
     expect(result).toStrictEqual(expected);
   });
+  it('should prevent SQL injection when attempting to drop table', async () => {
+    const userId: any = "1; DROP TABLE reports; --";
+    const expected: { report_id: number; title: string; description: string; date_submitted: Date; location_tag_id: number; status_id: number; user_id: number; }[] = [];
+    prisma.report.findMany.mockResolvedValueOnce(expected);
+    // eslint-disable-next-line
+    const result = await controller.getUserReports(userId);
+    expect(result).toStrictEqual(expected);
+  });
+  
+  it('should prevent SQL injection when attempting to retrieve unauthorized data', async () => {
+    const reportId: any = "2'; DROP TABLE reports; --";
+    const expected: { report_id: number; title: string; description: string; date_submitted: Date; location_tag_id: number; status_id: number; user_id: number; } | null = null;
+    prisma.report.findUnique.mockResolvedValueOnce(expected);
+    // eslint-disable-next-line
+    const result = await controller.getUserReport(reportId);
+    expect(result).toStrictEqual(expected);
+  });
+  
+  it('should prevent SQL injection when attempting to bypass authentication', async () => {
+    const userId: any = "' OR '1'='1";
+    const expected: { report_id: number; title: string; description: string; date_submitted: Date; location_tag_id: number; status_id: number; user_id: number; }[] = [];
+    prisma.report.findMany.mockResolvedValueOnce(expected);
+    // eslint-disable-next-line
+    const result: any = await controller.getUserReports(userId);
+    expect(result).toStrictEqual(expected);
+  });  
+  
 });

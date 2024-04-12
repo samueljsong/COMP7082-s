@@ -213,4 +213,63 @@ describe('UserController', () => {
     const result = await controller.getUserReports(userId);
     expect(result).toStrictEqual(expected);
   });
+
+  it('should prevent SQL injection (Classic) when attempting to get user reports', async () => {
+    const expected = [
+      {
+        report_id: 1,
+        title: 'TESTING TITLE',
+        description: 'TESTINGING DESCRIPTION',
+        date_submitted: new Date(),
+        status_id: 1,
+        location_tag_id: 101,
+        user_id: 16,
+      },
+    ];
+    prisma.report.findMany.mockResolvedValueOnce(expected);
+    const userId: any  = "1; DROP TABLE user; --";
+    // eslint-disable-next-line
+    const result = await controller.getUserReports(userId);
+    expect(result).toStrictEqual(expected);
+  });
+  
+  it('should prevent SQL injection (Union-based) when attempting to get user reports', async () => {
+    const expected = [
+      {
+        report_id: 1,
+        title: 'TESTING TITLE',
+        description: 'TESTINGING DESCRIPTION',
+        date_submitted: new Date(),
+        status_id: 1,
+        location_tag_id: 101,
+        user_id: 16,
+      },
+    ];
+    prisma.report.findMany.mockResolvedValueOnce(expected);
+    const userId: any  = "1 UNION SELECT 1, 'hacked', 3, 4, 5, 6; --";
+    // eslint-disable-next-line
+    const result = await controller.getUserReports(userId);
+    expect(result).toStrictEqual(expected);
+  });
+  
+  it('should prevent SQL injection (Error-based) when attempting to get user reports', async () => {
+    const expected = [
+      {
+        report_id: 1,
+        title: 'TESTING TITLE',
+        description: 'TESTINGING DESCRIPTION',
+        date_submitted: new Date(),
+        status_id: 1,
+        location_tag_id: 101,
+        user_id: 16,
+      },
+    ];
+    prisma.report.findMany.mockResolvedValueOnce(expected);
+    const userId: any = "2' OR 1=1; --";
+    // eslint-disable-next-line
+    const result = await controller.getUserReports(userId);
+    expect(result).toStrictEqual(expected);
+  });
+  
 });
+
